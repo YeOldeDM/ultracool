@@ -4,6 +4,7 @@ extends Node
 var sounds = []
 
 onready var sound = get_node('sound')
+onready var xhair = get_node('xhair')
 
 var old_pos
 
@@ -29,5 +30,5 @@ func _process(delta):
 			s.voice_set_pitch_scale(0,diff)
 			
 	old_pos = m_pos
-	
+	xhair.set_pos(m_pos)
 
