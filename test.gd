@@ -9,9 +9,11 @@ var old_pos
 
 func _ready():
 	sounds.append(sound)
-	sound.play('vap')
+	sound.play('dacemac',0)
 	old_pos = get_viewport().get_mouse_pos()
 	set_process(true)
+	for i in sounds:
+		print(i)
 	
 func _process(delta):
 	var m_pos = get_viewport().get_mouse_pos()
