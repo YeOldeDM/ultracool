@@ -1,7 +1,7 @@
 
 extends RigidBody2D
 
-var speed = 30
+var speed = 5
 var top_speed = 64
 
 func _ready():

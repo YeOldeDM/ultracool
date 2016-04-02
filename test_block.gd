@@ -11,4 +11,4 @@ func _ready():
 
 func _on_RigidBody2D_body_enter( body ):
 	print('hit')
-	sound.play('hit')
+	#sound.play('hit')

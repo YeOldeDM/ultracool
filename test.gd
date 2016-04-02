@@ -9,7 +9,7 @@ var old_pos
 
 func _ready():
 	sounds.append(sound)
-	sound.play('bassline')
+	sound.play('vap')
 	old_pos = get_viewport().get_mouse_pos()
 	set_process(true)
 	
