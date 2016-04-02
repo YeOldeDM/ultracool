@@ -3,7 +3,7 @@ extends Node
 
 var sounds = []
 
-onready var sound = get_node('sound')
+onready var sound = get_node('music/sound')
 onready var xhair = get_node('xhair')
 
 var old_pos
@@ -13,8 +13,7 @@ func _ready():
 	sound.play('dacemac',0)
 	old_pos = get_viewport().get_mouse_pos()
 	set_process(true)
-	for i in sounds:
-		print(i)
+	Input.warp_mouse_pos(Vector2(256,256))
 	
 func _process(delta):
 	var m_pos = get_viewport().get_mouse_pos()

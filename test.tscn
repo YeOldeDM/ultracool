@@ -1,8 +1,8 @@
-[gd_scene load_steps=22 format=1]
+[gd_scene load_steps=23 format=1]
 
 [ext_resource path="res://test.gd" type="Script" id=1]
-[ext_resource path="res://sfx/dacemac.smp" type="Sample" id=2]
-[ext_resource path="res://gfx/face.png" type="Texture" id=3]
+[ext_resource path="res://gfx/faces.png" type="Texture" id=2]
+[ext_resource path="res://face.gd" type="Script" id=3]
 [ext_resource path="res://test_block.gd" type="Script" id=4]
 [ext_resource path="res://icon.png" type="Texture" id=5]
 [ext_resource path="res://sfx/hit.smp" type="Sample" id=6]
@@ -14,10 +14,7 @@
 [ext_resource path="res://sfx/ultra.wav" type="Sample" id=12]
 [ext_resource path="res://vbox.gd" type="Script" id=13]
 [ext_resource path="res://gfx/xhair.png" type="Texture" id=14]
-
-[sub_resource type="SampleLibrary" id=1]
-
-samples/dacemac = { "db":0.0, "pitch":1.0, "sample":ExtResource( 2 ) }
+[ext_resource path="res://sfx/dacemac.smp" type="Sample" id=15]
 
 [sub_resource type="Environment" id=2]
 
@@ -87,27 +84,23 @@ extents = Vector2( 4, 4 )
 samples/ultra = { "db":0.0, "pitch":0.8, "sample":ExtResource( 12 ) }
 samples/cool = { "db":0.0, "pitch":0.8, "sample":ExtResource( 11 ) }
 
+[sub_resource type="SampleLibrary" id=1]
+
+samples/dacemac = { "db":0.0, "pitch":1.0, "sample":ExtResource( 15 ) }
+
 [node name="Node" type="Node"]
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 
-[node name="sound" type="SamplePlayer2D" parent="."]
-
-params/volume_db = 0.0
-params/pitch_scale = 1.0
-params/attenuation/min_distance = 1.0
-params/attenuation/max_distance = 2048.0
-params/attenuation/distance_exp = 1.0
-config/polyphony = 1
-config/samples = SubResource( 1 )
-config/pitch_random = 0.0
-
 [node name="face" type="Sprite" parent="."]
 
 visibility/blend_mode = 3
-texture = ExtResource( 3 )
-centered = false
+transform/pos = Vector2( 32, 32 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 4
+script/script = ExtResource( 3 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
@@ -375,6 +368,19 @@ visibility/opacity = 0.3
 visibility/blend_mode = 1
 texture = ExtResource( 14 )
 modulate = Color( 1, 0.00390625, 0.00390625, 1 )
+
+[node name="music" type="Node2D" parent="."]
+
+[node name="sound" type="SamplePlayer2D" parent="music"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 1 )
+config/pitch_random = 0.0
 
 [connection signal="body_enter" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_enter"]
 
