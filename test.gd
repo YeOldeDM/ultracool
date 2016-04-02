@@ -10,7 +10,7 @@ var old_pos
 
 func _ready():
 	sounds.append(sound)
-	sound.play('dacemac',0)
+	sound.play('sord',0)
 	old_pos = get_viewport().get_mouse_pos()
 	set_process(true)
 	Input.warp_mouse_pos(Vector2(256,256))

@@ -17,7 +17,7 @@ func _process(delta):
 	s.y = clamp(s.y,0.5,1.5)
 	set_scale(s)
 	var fr = int(round(rand_range(0,F-1)))
-	if randf() < 0.1:
+	if randf() < 0.01:
 		set_frame(fr)
 
 
