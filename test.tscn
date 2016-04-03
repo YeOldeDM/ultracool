@@ -1,20 +1,21 @@
-[gd_scene load_steps=23 format=1]
+[gd_scene load_steps=26 format=1]
 
 [ext_resource path="res://test.gd" type="Script" id=1]
-[ext_resource path="res://gfx/faces.png" type="Texture" id=2]
-[ext_resource path="res://face.gd" type="Script" id=3]
-[ext_resource path="res://test_block.gd" type="Script" id=4]
-[ext_resource path="res://icon.png" type="Texture" id=5]
-[ext_resource path="res://sfx/hit.smp" type="Sample" id=6]
-[ext_resource path="res://player.gd" type="Script" id=7]
-[ext_resource path="res://gfx/spaceman.png" type="Texture" id=8]
-[ext_resource path="res://fnt/wendy.fnt" type="Font" id=9]
-[ext_resource path="res://title.gd" type="Script" id=10]
-[ext_resource path="res://sfx/cool.wav" type="Sample" id=11]
-[ext_resource path="res://sfx/ultra.wav" type="Sample" id=12]
-[ext_resource path="res://vbox.gd" type="Script" id=13]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=14]
-[ext_resource path="res://sfx/sord.smp" type="Sample" id=15]
+[ext_resource path="res://test_block.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+[ext_resource path="res://sfx/hit.smp" type="Sample" id=4]
+[ext_resource path="res://player.gd" type="Script" id=5]
+[ext_resource path="res://gfx/ultraduck.png" type="Texture" id=6]
+[ext_resource path="res://sfx/laser_bullet_fire.wav" type="Sample" id=7]
+[ext_resource path="res://fnt/wendy.fnt" type="Font" id=8]
+[ext_resource path="res://title.gd" type="Script" id=9]
+[ext_resource path="res://sfx/cool.wav" type="Sample" id=10]
+[ext_resource path="res://sfx/ultra.wav" type="Sample" id=11]
+[ext_resource path="res://vbox.gd" type="Script" id=12]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=13]
+[ext_resource path="res://gfx/faces.png" type="Texture" id=14]
+[ext_resource path="res://face.gd" type="Script" id=15]
+[ext_resource path="res://sfx/sord.smp" type="Sample" id=16]
 
 [sub_resource type="Environment" id=1]
 
@@ -67,40 +68,51 @@ extents = Vector2( 8, 8 )
 
 [sub_resource type="SampleLibrary" id=3]
 
-samples/hit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/hit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
 
 [sub_resource type="RectangleShape2D" id=4]
 
 custom_solver_bias = 0.0
 extents = Vector2( 32, 2 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 
 custom_solver_bias = 0.0
-extents = Vector2( 4, 4 )
+points = Vector2Array( -3, -4, 0, -4, 2, -3, 2, 1, 0, 4, -2, 4, -3, -1 )
+
+[sub_resource type="SampleLibrary" id=8]
+
+samples/laser_bullet_fire = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+
+[sub_resource type="Animation" id=10]
+
+resource/name = "walk"
+length = 0.5
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":false, "times":FloatArray( 0, 0.1, 0.2, 0.3, 0.4 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ 0, 1, 2, 3, 3 ] }
 
 [sub_resource type="SampleLibrary" id=6]
 
-samples/ultra = { "db":0.0, "pitch":0.8, "sample":ExtResource( 12 ) }
-samples/cool = { "db":0.0, "pitch":0.8, "sample":ExtResource( 11 ) }
+samples/ultra = { "db":0.0, "pitch":0.8, "sample":ExtResource( 11 ) }
+samples/cool = { "db":0.0, "pitch":0.8, "sample":ExtResource( 10 ) }
 
 [sub_resource type="SampleLibrary" id=7]
 
-samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 15 ) }
+samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 16 ) }
 
 [node name="Node" type="Node"]
 
 script/script = ExtResource( 1 )
 __meta__ = { "__editor_plugin_screen__":"Script" }
 
-[node name="face" type="Sprite" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
-visibility/blend_mode = 3
-transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 2 )
-vframes = 4
-hframes = 4
-script/script = ExtResource( 3 )
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+environment = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 
@@ -127,11 +139,6 @@ params/anim_initial_pos = 0.0
 randomness/hue_variation = 1.0
 color/color = Color( 0.313812, 0.683015, 0.710938, 0.0583366 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = SubResource( 1 )
-
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 
 transform/pos = Vector2( 21.3608, 30.3608 )
@@ -157,7 +164,7 @@ velocity/linear = Vector2( 5, 16 )
 velocity/angular = 1.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 4 )
+script/script = ExtResource( 2 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="Particles2D" type="Particles2D" parent="RigidBody2D"]
@@ -166,7 +173,7 @@ visibility/blend_mode = 1
 config/amount = 8
 config/lifetime = 2.0
 config/local_space = false
-config/texture = ExtResource( 5 )
+config/texture = ExtResource( 3 )
 params/direction = 0.0
 params/spread = 10.0
 params/linear_velocity = 0.0
@@ -189,7 +196,7 @@ color/color = Color( 0.890625, 0.494019, 0.494019, 0.232287 )
 [node name="Sprite" type="Sprite" parent="RigidBody2D"]
 
 transform/scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 5 )
+texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 
@@ -219,8 +226,8 @@ collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 1.0
+friction = 0.0
+bounce = 0.0
 __meta__ = { "_editor_collapsed":true }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -240,8 +247,8 @@ collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 1.0
+friction = 0.0
+bounce = 0.0
 __meta__ = { "_editor_collapsed":true }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D1"]
@@ -262,8 +269,8 @@ collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 1.0
+friction = 0.0
+bounce = 0.0
 __meta__ = { "_editor_collapsed":true }
 
 [node name="CollisionShape2D1" type="CollisionShape2D" parent="StaticBody2D2"]
@@ -284,8 +291,8 @@ collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 1.0
+friction = 0.0
+bounce = 0.0
 __meta__ = { "_editor_collapsed":true }
 
 [node name="CollisionShape2D1" type="CollisionShape2D" parent="StaticBody2D3"]
@@ -298,8 +305,8 @@ _update_shape_index = 0
 
 transform/pos = Vector2( 25, 53 )
 input/pickable = false
-shapes/0/shape = SubResource( 5 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/shape = SubResource( 9 )
+shapes/0/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -318,18 +325,44 @@ velocity/linear = Vector2( 0, 0 )
 velocity/angular = 0.0
 damp_override/linear = -1.0
 damp_override/angular = -1.0
-script/script = ExtResource( 7 )
+script/script = ExtResource( 5 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Sprite" type="Sprite" parent="player"]
 
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
+hframes = 4
+frame = 3
 region_rect = Rect2( 0, 0, 8, 8 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="player"]
 
-shape = SubResource( 5 )
+build_mode = 0
+polygon = Vector2Array( -3, -4, 0, -4, 2, -3, 2, 1, 0, 4, -2, 4, -3, -1 )
+shape_range = Vector2( 0, 0 )
 trigger = false
-_update_shape_index = 0
+
+[node name="shoot" type="SamplePlayer2D" parent="player"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 8 )
+config/pitch_random = 0.0
+
+[node name="animator" type="AnimationPlayer" parent="player"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/walk = SubResource( 10 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "walk"
 
 [node name="Label" type="Label" parent="."]
 
@@ -340,7 +373,7 @@ margin/bottom = 13.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
-custom_fonts/font = ExtResource( 9 )
+custom_fonts/font = ExtResource( 8 )
 custom_colors/font_color = Color( 0.203125, 0.831909, 1, 1 )
 text = "move wads"
 align = 1
@@ -348,7 +381,7 @@ valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 9 )
 
 [node name="vbox" type="SamplePlayer2D" parent="."]
 
@@ -360,14 +393,23 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 6 )
 config/pitch_random = 0.0
-script/script = ExtResource( 13 )
+script/script = ExtResource( 12 )
 
 [node name="xhair" type="Sprite" parent="."]
 
 visibility/opacity = 0.3
 visibility/blend_mode = 1
-texture = ExtResource( 14 )
+texture = ExtResource( 13 )
 modulate = Color( 1, 0.00390625, 0.00390625, 1 )
+
+[node name="face" type="Sprite" parent="."]
+
+visibility/opacity = 0.1
+transform/pos = Vector2( 32, 32 )
+texture = ExtResource( 14 )
+vframes = 4
+hframes = 4
+script/script = ExtResource( 15 )
 
 [node name="music" type="Node2D" parent="."]
 
@@ -381,6 +423,25 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 7 )
 config/pitch_random = 0.0
+
+[node name="shoot_label" type="Label" parent="."]
+
+visibility/opacity = 0.2
+visibility/blend_mode = 1
+margin/top = 51.0
+margin/right = 64.0
+margin/bottom = 64.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 0.203125, 0.831909, 1, 1 )
+text = "CAN SHOOT"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [connection signal="body_enter" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_enter"]
 
