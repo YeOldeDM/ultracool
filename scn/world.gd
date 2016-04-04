@@ -20,11 +20,9 @@ func _ready():
 	old_mpos = get_viewport().get_mouse_pos()
 	
 	set_process(true)
-	#set_process_input(true)
 
 		
 func _process(delta):
-	#var cam_pos = get_node('player/camera').get_global_pos() - Vector2(32,32)
 	var mouse_pos = get_viewport().get_mouse_pos()
 	print(mouse_pos)
 	mpos = mouse_pos - Vector2(32,32)

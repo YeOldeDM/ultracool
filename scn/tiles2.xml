@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="TileSet" subresource_count="2" version="2.0" version_name="Godot Engine v2.0.stable.official">
+<resource_file type="TileSet" subresource_count="3" version="2.0" version_name="Godot Engine v2.0.stable.official">
 	<ext_resource path="res://gfx/tile.png" type="Texture" index="0"></ext_resource>
+	<resource type="ConvexPolygonShape2D" path="local://1">
+		<real name="custom_solver_bias"> 0 </real>
+		<vector2_array name="points" len="4"> 			8, 0, 8, 8, 0, 8, 0, 0 </vector2_array>
+
+	</resource>
 	<main_resource>
-		<string name="0/name"> "sprite" </string>
+		<string name="0/name"> "wall" </string>
 		<resource name="0/texture" external="0">  </resource>
 		<vector2 name="0/tex_offset"> 0, 0 </vector2>
 		<resource name="0/material"></resource>		<rect2 name="0/region"> 0, 0, 0, 0 </rect2>
 		<vector2 name="0/occluder_offset"> -0, -0 </vector2>
 		<resource name="0/occluder"></resource>		<vector2 name="0/navigation_offset"> -0, -0 </vector2>
-		<resource name="0/navigation"></resource>		<vector2 name="0/shape_offset"> 0, 0 </vector2>
-		<array name="0/shapes" len="0" shared="false">
+		<resource name="0/navigation"></resource>		<vector2 name="0/shape_offset"> -0, -0 </vector2>
+		<array name="0/shapes" len="1" shared="false">
+			<resource  resource_type="Shape2D" path="local://1">  </resource>
 		</array>
 
 	</main_resource>

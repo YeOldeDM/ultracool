@@ -9,7 +9,12 @@ points = Vector2Array( 8, 0, 8, 8, 0, 8, 0, 0 )
 
 [node name="Node" type="Node"]
 
-[node name="wall" type="StaticBody2D" parent="."]
+[node name="wall" type="Sprite" parent="."]
+
+texture = ExtResource( 1 )
+centered = false
+
+[node name="StaticBody2D" type="StaticBody2D" parent="wall"]
 
 input/pickable = false
 shapes/0/shape = SubResource( 1 )
@@ -19,15 +24,10 @@ collision/layers = 1
 collision/mask = 1
 constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
-friction = 1.0
+friction = 0.0
 bounce = 0.0
 
-[node name="sprite" type="Sprite" parent="wall"]
-
-texture = ExtResource( 1 )
-centered = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall/StaticBody2D"]
 
 build_mode = 0
 polygon = Vector2Array( 0, 0, 0, 8, 8, 8, 8, 0 )
