@@ -55,11 +55,13 @@ func _integrate_forces(state):
 			lv.y += spd
 		else:
 			lv.y -= spd
+		lv.y = max(0,lv.y)
 	if !LEFT and !RIGHT:
 		if lv.x < 0:
 			lv.x += spd
 		else:
 			lv.x -= spd
+		lv.x = max(0,lv.x)
 	
 	if !UP and !DOWN and !LEFT and !RIGHT:
 		ts = 1.0
@@ -77,9 +79,10 @@ func _integrate_forces(state):
 		var B = bullet.instance()
 		PS2D.body_add_collision_exception(B.get_rid(),get_rid())
 		var V = get_viewport().get_mouse_pos() - get_pos()
-		V = V.normalized()*100
-		B.set_linear_velocity(V)
 		B.set_pos(get_pos())
 		get_parent().add_child(B)
+		V = V.normalized()*100
+		B.set_linear_velocity(V)
+
 
 
