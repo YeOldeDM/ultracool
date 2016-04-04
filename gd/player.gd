@@ -78,7 +78,7 @@ func _integrate_forces(state):
 		shoot_timer = 0
 		var B = bullet.instance()
 		PS2D.body_add_collision_exception(B.get_rid(),get_rid())
-		var V = get_viewport().get_mouse_pos() - get_pos()
+		var V = get_node('camera/xhair').get_pos()
 		B.set_pos(get_pos())
 		get_parent().add_child(B)
 		V = V.normalized()*100
