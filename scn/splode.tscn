@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://gfx/splode.png" type="Texture" id=1]
+[ext_resource path="res://scn/splode.gd" type="Script" id=2]
+
+[node name="splode" type="Sprite"]
+
+texture = ExtResource( 1 )
+hframes = 4
+modulate = Color( 0.340271, 0.871094, 0.584947, 1 )
+script/script = ExtResource( 2 )
+
+

@@ -13,8 +13,8 @@ func _process(delta):
 	var s = get_scale()
 	s.x += rx*delta
 	s.y += ry*delta
-	s.x = clamp(s.x,0.5,1.5)
-	s.y = clamp(s.y,0.5,1.5)
+	s.x = clamp(s.x,1.0,3.0)
+	s.y = clamp(s.y,1.0,3.0)
 	set_scale(s)
 	var fr = int(round(rand_range(0,F-1)))
 	if randf() < 0.01:

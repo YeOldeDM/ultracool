@@ -6,7 +6,7 @@ var sounds = []
 var soundtrack = 'sord'
 onready var music = get_node('music')
 onready var env = get_node('env')
-onready var xhair = get_node('player/camera/xhair')
+onready var xhair = get_node('xhair')
 
 var mpos
 var old_mpos
@@ -24,8 +24,7 @@ func _ready():
 		
 func _process(delta):
 	var mouse_pos = get_viewport().get_mouse_pos()
-	print(mouse_pos)
-	mpos = mouse_pos - Vector2(32,32)
+	mpos = mouse_pos
 	var diff = mpos - old_mpos
 	var lv = get_node('player').get_linear_velocity()
 	diff = (abs(diff.x)+abs(diff.y)+abs(lv.x)+abs(lv.y))/4
@@ -34,8 +33,8 @@ func _process(delta):
 	OS.set_time_scale(diff)
 	
 	for s in sounds:
-		if s.is_voice_active(0):
-			s.voice_set_pitch_scale(0,diff)
+		s.set('params/pitch_scale',diff)
+			
 	
 	old_mpos = mpos
 	xhair.set_pos(mpos)
