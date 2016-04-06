@@ -1,186 +1,143 @@
 [gd_scene load_steps=36 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
-[ext_resource path="res://gfx/faces.png" type="Texture" id=2]
-[ext_resource path="res://face.gd" type="Script" id=3]
-[ext_resource path="res://scn/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://sfx/sord.smp" type="Sample" id=5]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=6]
-[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=7]
-[ext_resource path="res://gfx/map01.png" type="Texture" id=8]
+[ext_resource path="res://scn/world_env.res" type="Environment" id=2]
+[ext_resource path="res://gfx/faces.png" type="Texture" id=3]
+[ext_resource path="res://face.gd" type="Script" id=4]
+[ext_resource path="res://gfx/map01.png" type="Texture" id=5]
+[ext_resource path="res://scn/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://sfx/sord.smp" type="Sample" id=7]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=8]
+[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=9]
 
-[sub_resource type="Environment" id=1]
-
-ambient_light/enabled = false
-ambient_light/color = Color( 0, 0, 0, 1 )
-ambient_light/energy = 1.0
-fxaa/enabled = false
-background/mode = 5
-background/color = Color( 0, 0, 0, 1 )
-background/energy = 1.0
-background/scale = 1.0
-background/glow = 0.0
-background/canvas_max_layer = null
-glow/enabled = true
-glow/blur_passes = 1
-glow/blur_scale = 3.0
-glow/blur_strength = 0.5
-glow/blur_blend_mode = null
-glow/bloom = 4.0
-glow/bloom_treshold = 0.2
-dof_blur/enabled = false
-dof_blur/blur_passes = 1
-dof_blur/begin = 100.0
-dof_blur/range = 10.0
-hdr/enabled = true
-hdr/tonemapper = 0
-hdr/exposure = 0.4
-hdr/white = 1.0
-hdr/glow_treshold = 0.95
-hdr/glow_scale = 0.2
-hdr/min_luminance = 0.4
-hdr/max_luminance = 8.0
-hdr/exposure_adj_speed = 0.5
-fog/enabled = false
-fog/begin = 100.0
-fog/begin_color = Color( 0, 0, 0, 1 )
-fog/end_color = Color( 0, 0, 0, 1 )
-fog/attenuation = 1.0
-fog/bg = true
-bcs/enabled = false
-bcs/brightness = 1.0
-bcs/contrast = 1.0
-bcs/saturation = 1.0
-srgb/enabled = false
-
-[sub_resource type="SampleLibrary" id=2]
-
-samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
-
-[sub_resource type="ConvexPolygonShape2D" id=3]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 64, 0, 64, 10, 16, 10, 16, 1 )
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=2]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, 0, 64, 0, 16, 1, 11, 1 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 11, 1, 11, 15, 6, 15, 0, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=4]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, 53, 0, 0, 6, 15, 6, 30 )
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 6, 30, 11, 30, 11, 48, 0, 53 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 15, 53, 0, 53, 11, 48, 15, 48 )
 
-[sub_resource type="ConvexPolygonShape2D" id=9]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 63, 10, 64, 10, 64, 64, 63, 46 )
 
-[sub_resource type="ConvexPolygonShape2D" id=10]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, 64, 0, 53, 1, 53, 1, 61 )
 
-[sub_resource type="ConvexPolygonShape2D" id=11]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 64, 64, 0, 64, 1, 61, 21, 61 )
 
-[sub_resource type="ConvexPolygonShape2D" id=12]
+[sub_resource type="ConvexPolygonShape2D" id=10]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 21, 46, 50, 46, 50, 55, 43, 53 )
 
-[sub_resource type="ConvexPolygonShape2D" id=13]
+[sub_resource type="ConvexPolygonShape2D" id=11]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 50, 55, 43, 55, 43, 53 )
 
-[sub_resource type="ConvexPolygonShape2D" id=14]
+[sub_resource type="ConvexPolygonShape2D" id=12]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 21, 46, 43, 53, 34, 53 )
 
-[sub_resource type="ConvexPolygonShape2D" id=15]
+[sub_resource type="ConvexPolygonShape2D" id=13]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 21, 61, 21, 46, 34, 53, 34, 59 )
 
-[sub_resource type="ConvexPolygonShape2D" id=16]
+[sub_resource type="ConvexPolygonShape2D" id=14]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 64, 64, 21, 61, 34, 59, 56, 59 )
 
-[sub_resource type="ConvexPolygonShape2D" id=17]
+[sub_resource type="ConvexPolygonShape2D" id=15]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 63, 46, 64, 64, 56, 59, 56, 46 )
 
-[sub_resource type="ConvexPolygonShape2D" id=18]
+[sub_resource type="ConvexPolygonShape2D" id=16]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 25, 20, 27, 20, 27, 21, 26, 22 )
 
-[sub_resource type="ConvexPolygonShape2D" id=19]
+[sub_resource type="ConvexPolygonShape2D" id=17]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 25, 29, 25, 20, 26, 22, 26, 27 )
 
-[sub_resource type="ConvexPolygonShape2D" id=20]
+[sub_resource type="ConvexPolygonShape2D" id=18]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 27, 29, 25, 29, 26, 27, 27, 28 )
 
-[sub_resource type="ConvexPolygonShape2D" id=21]
+[sub_resource type="ConvexPolygonShape2D" id=19]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 25.4, 20.3, 27.4, 20.3, 27.4, 21.3, 26.4, 22.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=22]
+[sub_resource type="ConvexPolygonShape2D" id=20]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 25.4, 29.3, 25.4, 20.3, 26.4, 22.3, 26.4, 27.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=23]
+[sub_resource type="ConvexPolygonShape2D" id=21]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 27.4, 29.3, 25.4, 29.3, 26.4, 27.3, 27.4, 28.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=24]
+[sub_resource type="ConvexPolygonShape2D" id=22]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 34.4, 20.3, 34.4, 22.3, 32.4, 22.3, 32.4, 20.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=25]
+[sub_resource type="ConvexPolygonShape2D" id=23]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 34.4, 28.3, 34.4, 30.3, 32.4, 30.3, 32.4, 28.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=26]
+[sub_resource type="ConvexPolygonShape2D" id=24]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 51.4, 18.3, 51.4, 38.3, 47.4, 38.3, 47.4, 18.3 )
 
-[sub_resource type="ConvexPolygonShape2D" id=27]
+[sub_resource type="ConvexPolygonShape2D" id=25]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 25.4, 38.3, 25.4, 40.3, 20.4, 40.3, 20.4, 38.3 )
+
+[sub_resource type="SampleLibrary" id=26]
+
+samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
 
 [node name="world" type="Node"]
 
@@ -189,7 +146,7 @@ script/script = ExtResource( 1 )
 [node name="env" type="WorldEnvironment" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = SubResource( 1 )
+environment = ExtResource( 2 )
 
 [node name="overlay" type="CanvasLayer" parent="."]
 
@@ -227,12 +184,164 @@ color/color = Color( 0.313812, 0.683015, 0.710938, 0.0389873 )
 
 visibility/opacity = 0.1
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-script/script = ExtResource( 3 )
+script/script = ExtResource( 4 )
 
-[node name="player" parent="." instance=ExtResource( 4 )]
+[node name="map" type="StaticBody2D" parent="."]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 2 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 3 )
+shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/2/trigger = false
+shapes/3/shape = SubResource( 4 )
+shapes/3/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/3/trigger = false
+shapes/4/shape = SubResource( 5 )
+shapes/4/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/4/trigger = false
+shapes/5/shape = SubResource( 6 )
+shapes/5/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/5/trigger = false
+shapes/6/shape = SubResource( 7 )
+shapes/6/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/6/trigger = false
+shapes/7/shape = SubResource( 8 )
+shapes/7/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/7/trigger = false
+shapes/8/shape = SubResource( 9 )
+shapes/8/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/8/trigger = false
+shapes/9/shape = SubResource( 10 )
+shapes/9/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/9/trigger = false
+shapes/10/shape = SubResource( 11 )
+shapes/10/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/10/trigger = false
+shapes/11/shape = SubResource( 12 )
+shapes/11/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/11/trigger = false
+shapes/12/shape = SubResource( 13 )
+shapes/12/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/12/trigger = false
+shapes/13/shape = SubResource( 14 )
+shapes/13/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/13/trigger = false
+shapes/14/shape = SubResource( 15 )
+shapes/14/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/14/trigger = false
+shapes/15/shape = SubResource( 16 )
+shapes/15/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/15/trigger = false
+shapes/16/shape = SubResource( 17 )
+shapes/16/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/16/trigger = false
+shapes/17/shape = SubResource( 18 )
+shapes/17/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/17/trigger = false
+shapes/18/shape = SubResource( 19 )
+shapes/18/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/18/trigger = false
+shapes/19/shape = SubResource( 20 )
+shapes/19/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/19/trigger = false
+shapes/20/shape = SubResource( 21 )
+shapes/20/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/20/trigger = false
+shapes/21/shape = SubResource( 22 )
+shapes/21/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/21/trigger = false
+shapes/22/shape = SubResource( 23 )
+shapes/22/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/22/trigger = false
+shapes/23/shape = SubResource( 24 )
+shapes/23/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/23/trigger = false
+shapes/24/shape = SubResource( 25 )
+shapes/24/transform = Matrix32( 1, 0, 0, 1, 5.59999, -0.299999 )
+shapes/24/trigger = false
+collision/layers = 3
+collision/mask = 3
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Sprite" type="Sprite" parent="map"]
+
+texture = ExtResource( 5 )
+centered = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map"]
+
+build_mode = 0
+polygon = Vector2Array( 0, 0, 64, 0, 64, 10, 16, 10, 16, 1, 11, 1, 11, 15, 6, 15, 6, 30, 11, 30, 11, 48, 15, 48, 15, 53, 0, 53 )
+shape_range = Vector2( 0, 5 )
+trigger = false
+
+[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="map"]
+
+build_mode = 0
+polygon = Vector2Array( 63, 10, 63, 46, 56, 46, 56, 59, 34, 59, 34, 53, 43, 53, 43, 55, 50, 55, 50, 46, 21, 46, 21, 61, 1, 61, 1, 53, 0, 53, 0, 64, 64, 64, 64, 10 )
+shape_range = Vector2( 6, 14 )
+trigger = false
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="map"]
+
+build_mode = 0
+polygon = Vector2Array( 25, 20, 25, 29, 27, 29, 27, 28, 26, 27, 26, 22, 27, 21, 27, 20 )
+shape_range = Vector2( 15, 17 )
+trigger = false
+
+[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="map"]
+
+transform/pos = Vector2( 5.59999, -0.299999 )
+build_mode = 0
+polygon = Vector2Array( 25.4, 20.3, 25.4, 29.3, 27.4, 29.3, 27.4, 28.3, 26.4, 27.3, 26.4, 22.3, 27.4, 21.3, 27.4, 20.3 )
+shape_range = Vector2( 18, 20 )
+trigger = false
+
+[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="map"]
+
+transform/pos = Vector2( 5.59999, -0.299999 )
+build_mode = 0
+polygon = Vector2Array( 32.4, 20.3, 32.4, 22.3, 34.4, 22.3, 34.4, 20.3 )
+shape_range = Vector2( 21, 21 )
+trigger = false
+
+[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="map"]
+
+transform/pos = Vector2( 5.59999, -0.299999 )
+build_mode = 0
+polygon = Vector2Array( 32.4, 28.3, 32.4, 30.3, 34.4, 30.3, 34.4, 28.3 )
+shape_range = Vector2( 22, 22 )
+trigger = false
+
+[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="map"]
+
+transform/pos = Vector2( 5.59999, -0.299999 )
+build_mode = 0
+polygon = Vector2Array( 47.4, 18.3, 47.4, 38.3, 51.4, 38.3, 51.4, 18.3 )
+shape_range = Vector2( 23, 23 )
+trigger = false
+
+[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="map"]
+
+transform/pos = Vector2( 5.59999, -0.299999 )
+build_mode = 0
+polygon = Vector2Array( 20.4, 38.3, 20.4, 40.3, 25.4, 40.3, 25.4, 38.3 )
+shape_range = Vector2( 24, 24 )
+trigger = false
+
+[node name="player" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 32, 32 )
 
@@ -255,8 +364,6 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
-[node name="map" type="Node" parent="."]
-
 [node name="music" type="SamplePlayer2D" parent="."]
 
 params/volume_db = 0.0
@@ -265,194 +372,38 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 2 )
+config/samples = SubResource( 26 )
 config/pitch_random = 0.0
 
 [node name="xhair" type="Sprite" parent="."]
 
-visibility/blend_mode = 1
+visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 6 )
-modulate = Color( 1, 0, 0, 0.522911 )
+texture = ExtResource( 8 )
+modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 
-[node name="mook" parent="." instance=ExtResource( 7 )]
+[node name="mook" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 12, 42 )
 
-[node name="mook1" parent="." instance=ExtResource( 7 )]
+[node name="mook1" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 12, 32 )
 
-[node name="mook2" parent="." instance=ExtResource( 7 )]
+[node name="mook2" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 22, 52 )
 
-[node name="mook3" parent="." instance=ExtResource( 7 )]
+[node name="mook3" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 42, 22 )
 
-[node name="mook3 2" parent="." instance=ExtResource( 7 )]
+[node name="mook3 2" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 42, 12 )
 
-[node name="mook3 3" parent="." instance=ExtResource( 7 )]
+[node name="mook3 3" parent="." instance=ExtResource( 9 )]
 
 transform/pos = Vector2( 52, 32 )
-
-[node name="map 2" type="StaticBody2D" parent="."]
-
-input/pickable = false
-shapes/0/shape = SubResource( 3 )
-shapes/0/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-shapes/1/shape = SubResource( 4 )
-shapes/1/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/1/trigger = false
-shapes/2/shape = SubResource( 5 )
-shapes/2/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/2/trigger = false
-shapes/3/shape = SubResource( 6 )
-shapes/3/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/3/trigger = false
-shapes/4/shape = SubResource( 7 )
-shapes/4/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/4/trigger = false
-shapes/5/shape = SubResource( 8 )
-shapes/5/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/5/trigger = false
-shapes/6/shape = SubResource( 9 )
-shapes/6/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/6/trigger = false
-shapes/7/shape = SubResource( 10 )
-shapes/7/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/7/trigger = false
-shapes/8/shape = SubResource( 11 )
-shapes/8/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/8/trigger = false
-shapes/9/shape = SubResource( 12 )
-shapes/9/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/9/trigger = false
-shapes/10/shape = SubResource( 13 )
-shapes/10/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/10/trigger = false
-shapes/11/shape = SubResource( 14 )
-shapes/11/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/11/trigger = false
-shapes/12/shape = SubResource( 15 )
-shapes/12/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/12/trigger = false
-shapes/13/shape = SubResource( 16 )
-shapes/13/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/13/trigger = false
-shapes/14/shape = SubResource( 17 )
-shapes/14/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/14/trigger = false
-shapes/15/shape = SubResource( 18 )
-shapes/15/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/15/trigger = false
-shapes/16/shape = SubResource( 19 )
-shapes/16/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/16/trigger = false
-shapes/17/shape = SubResource( 20 )
-shapes/17/transform = Matrix32( 1, -0, 0, 1, 0, 0 )
-shapes/17/trigger = false
-shapes/18/shape = SubResource( 21 )
-shapes/18/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/18/trigger = false
-shapes/19/shape = SubResource( 22 )
-shapes/19/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/19/trigger = false
-shapes/20/shape = SubResource( 23 )
-shapes/20/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/20/trigger = false
-shapes/21/shape = SubResource( 24 )
-shapes/21/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/21/trigger = false
-shapes/22/shape = SubResource( 25 )
-shapes/22/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/22/trigger = false
-shapes/23/shape = SubResource( 26 )
-shapes/23/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/23/trigger = false
-shapes/24/shape = SubResource( 27 )
-shapes/24/transform = Matrix32( 1, -0, 0, 1, 5.59999, -0.299999 )
-shapes/24/trigger = false
-collision/layers = 3
-collision/mask = 3
-constant_linear_velocity = Vector2( 0, 0 )
-constant_angular_velocity = 0.0
-friction = 1.0
-bounce = 0.0
-
-[node name="Sprite" type="Sprite" parent="map 2"]
-
-texture = ExtResource( 8 )
-centered = false
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map 2"]
-
-build_mode = 0
-polygon = Vector2Array( 0, 0, 64, 0, 64, 10, 16, 10, 16, 1, 11, 1, 11, 15, 6, 15, 6, 30, 11, 30, 11, 48, 15, 48, 15, 53, 0, 53 )
-shape_range = Vector2( 0, 5 )
-trigger = false
-
-[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="map 2"]
-
-build_mode = 0
-polygon = Vector2Array( 63, 10, 63, 46, 56, 46, 56, 59, 34, 59, 34, 53, 43, 53, 43, 55, 50, 55, 50, 46, 21, 46, 21, 61, 1, 61, 1, 53, 0, 53, 0, 64, 64, 64, 64, 10 )
-shape_range = Vector2( 6, 14 )
-trigger = false
-
-[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="map 2"]
-
-build_mode = 0
-polygon = Vector2Array( 25, 20, 25, 29, 27, 29, 27, 28, 26, 27, 26, 22, 27, 21, 27, 20 )
-shape_range = Vector2( 15, 17 )
-trigger = false
-
-[node name="CollisionPolygon2D3" type="CollisionPolygon2D" parent="map 2"]
-
-transform/pos = Vector2( 5.59999, -0.299999 )
-transform/scale = Vector2( 1, 1 )
-build_mode = 0
-polygon = Vector2Array( 25.4, 20.3, 25.4, 29.3, 27.4, 29.3, 27.4, 28.3, 26.4, 27.3, 26.4, 22.3, 27.4, 21.3, 27.4, 20.3 )
-shape_range = Vector2( 18, 20 )
-trigger = false
-
-[node name="CollisionPolygon2D4" type="CollisionPolygon2D" parent="map 2"]
-
-transform/pos = Vector2( 5.59999, -0.299999 )
-transform/scale = Vector2( 1, 1 )
-build_mode = 0
-polygon = Vector2Array( 32.4, 20.3, 32.4, 22.3, 34.4, 22.3, 34.4, 20.3 )
-shape_range = Vector2( 21, 21 )
-trigger = false
-
-[node name="CollisionPolygon2D5" type="CollisionPolygon2D" parent="map 2"]
-
-transform/pos = Vector2( 5.59999, -0.299999 )
-transform/scale = Vector2( 1, 1 )
-build_mode = 0
-polygon = Vector2Array( 32.4, 28.3, 32.4, 30.3, 34.4, 30.3, 34.4, 28.3 )
-shape_range = Vector2( 22, 22 )
-trigger = false
-
-[node name="CollisionPolygon2D6" type="CollisionPolygon2D" parent="map 2"]
-
-transform/pos = Vector2( 5.59999, -0.299999 )
-transform/scale = Vector2( 1, 1 )
-build_mode = 0
-polygon = Vector2Array( 47.4, 18.3, 47.4, 38.3, 51.4, 38.3, 51.4, 18.3 )
-shape_range = Vector2( 23, 23 )
-trigger = false
-
-[node name="CollisionPolygon2D7" type="CollisionPolygon2D" parent="map 2"]
-
-transform/pos = Vector2( 5.59999, -0.299999 )
-transform/scale = Vector2( 1, 1 )
-build_mode = 0
-polygon = Vector2Array( 20.4, 38.3, 20.4, 40.3, 25.4, 40.3, 25.4, 38.3 )
-shape_range = Vector2( 24, 24 )
-trigger = false
 
 

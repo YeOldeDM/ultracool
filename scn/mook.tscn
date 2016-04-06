@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scn/mook.gd" type="Script" id=1]
 [ext_resource path="res://gfx/guy.png" type="Texture" id=2]
 [ext_resource path="res://sfx/laser_bullet_fire.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/kill.wav" type="Sample" id=4]
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, -2, 1, 0, 0, 2, -1, 0 )
@@ -24,10 +25,14 @@ tracks/0/keys = { "cont":false, "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transit
 
 samples/shoot = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 
+[sub_resource type="SampleLibrary" id=4]
+
+samples/kill = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+
 [node name="mook" type="RigidBody2D"]
 
 input/pickable = false
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -84,5 +89,16 @@ build_mode = 0
 polygon = Vector2Array( 0, -2, 1, 0, 0, 2, -1, 0 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="kill" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 4 )
+config/pitch_random = 0.0
 
 
