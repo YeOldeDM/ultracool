@@ -1,14 +1,13 @@
-[gd_scene load_steps=36 format=1]
+[gd_scene load_steps=35 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
-[ext_resource path="res://scn/world_env.res" type="Environment" id=2]
-[ext_resource path="res://gfx/faces.png" type="Texture" id=3]
-[ext_resource path="res://face.gd" type="Script" id=4]
-[ext_resource path="res://gfx/map01.png" type="Texture" id=5]
-[ext_resource path="res://scn/player.tscn" type="PackedScene" id=6]
-[ext_resource path="res://sfx/sord.smp" type="Sample" id=7]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=8]
-[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=9]
+[ext_resource path="res://gfx/faces.png" type="Texture" id=2]
+[ext_resource path="res://gd/face.gd" type="Script" id=3]
+[ext_resource path="res://gfx/map01.png" type="Texture" id=4]
+[ext_resource path="res://scn/player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sfx/sord.wav" type="Sample" id=6]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=7]
+[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -137,16 +136,11 @@ points = Vector2Array( 25.4, 38.3, 25.4, 40.3, 20.4, 40.3, 20.4, 38.3 )
 
 [sub_resource type="SampleLibrary" id=26]
 
-samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
 
-[node name="world" type="Node"]
+[node name="world" type="Node2D"]
 
 script/script = ExtResource( 1 )
-
-[node name="env" type="WorldEnvironment" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = ExtResource( 2 )
 
 [node name="overlay" type="CanvasLayer" parent="."]
 
@@ -184,10 +178,10 @@ color/color = Color( 0.313812, 0.683015, 0.710938, 0.0389873 )
 
 visibility/opacity = 0.1
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 vframes = 4
 hframes = 4
-script/script = ExtResource( 4 )
+script/script = ExtResource( 3 )
 
 [node name="map" type="StaticBody2D" parent="."]
 
@@ -277,7 +271,7 @@ __meta__ = { "_editor_collapsed":true }
 
 [node name="Sprite" type="Sprite" parent="map"]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 centered = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map"]
@@ -341,7 +335,7 @@ polygon = Vector2Array( 20.4, 38.3, 20.4, 40.3, 25.4, 40.3, 25.4, 38.3 )
 shape_range = Vector2( 24, 24 )
 trigger = false
 
-[node name="player" parent="." instance=ExtResource( 6 )]
+[node name="player" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 32, 32 )
 
@@ -379,30 +373,30 @@ config/pitch_random = 0.0
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 
-[node name="mook" parent="." instance=ExtResource( 9 )]
+[node name="mook" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 12, 42 )
 
-[node name="mook1" parent="." instance=ExtResource( 9 )]
+[node name="mook1" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 12, 32 )
 
-[node name="mook2" parent="." instance=ExtResource( 9 )]
+[node name="mook2" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 22, 52 )
 
-[node name="mook3" parent="." instance=ExtResource( 9 )]
+[node name="mook3" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 42, 22 )
 
-[node name="mook3 2" parent="." instance=ExtResource( 9 )]
+[node name="mook3 2" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 42, 12 )
 
-[node name="mook3 3" parent="." instance=ExtResource( 9 )]
+[node name="mook3 3" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 52, 32 )
 

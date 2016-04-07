@@ -1,5 +1,5 @@
 
-extends Node
+extends Node2D
 
 
 func _ready():
@@ -10,7 +10,7 @@ func _input(event):
 		_next()
 
 func _next():
-	get_tree().change_scene('res://scn/world.tscn')
+	get_parent().load_scene('res://scn/title.tscn')
 
 
 func _on_Timer_timeout():
