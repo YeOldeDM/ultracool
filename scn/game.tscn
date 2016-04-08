@@ -1,7 +1,15 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://gd/game.gd" type="Script" id=1]
 [ext_resource path="res://scn/world_env.res" type="Environment" id=2]
+[ext_resource path="res://sfx/cool.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/ultra.wav" type="Sample" id=4]
+[ext_resource path="res://gd/vbox.gd" type="Script" id=5]
+
+[sub_resource type="SampleLibrary" id=1]
+
+samples/ultra = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/cool = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 
 [node name="Game" type="Node2D"]
 
@@ -11,5 +19,28 @@ script/script = ExtResource( 1 )
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 environment = ExtResource( 2 )
+
+[node name="soundbox" type="Control" parent="."]
+
+margin/left = 32.0
+margin/top = 32.0
+margin/right = 72.0
+margin/bottom = 72.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="SamplePlayer2D" type="SamplePlayer2D" parent="soundbox"]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 1 )
+config/pitch_random = 0.0
+script/script = ExtResource( 5 )
 
 

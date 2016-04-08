@@ -5,7 +5,7 @@
 [ext_resource path="res://gd/face.gd" type="Script" id=3]
 [ext_resource path="res://gfx/map01.png" type="Texture" id=4]
 [ext_resource path="res://scn/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://sfx/sord.wav" type="Sample" id=6]
+[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=6]
 [ext_resource path="res://gfx/xhair.png" type="Texture" id=7]
 [ext_resource path="res://scn/mook.tscn" type="PackedScene" id=8]
 
@@ -134,9 +134,11 @@ points = Vector2Array( 51.4, 18.3, 51.4, 38.3, 47.4, 38.3, 47.4, 18.3 )
 custom_solver_bias = 0.0
 points = Vector2Array( 25.4, 38.3, 25.4, 40.3, 20.4, 40.3, 20.4, 38.3 )
 
-[sub_resource type="SampleLibrary" id=26]
+[sub_resource type="NavigationPolygon" id=26]
 
-samples/sord = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+vertices = Vector2Array( 51, 45, 32, 41, 32, 37, 37, 31, 41, 31, 52, 39, 55, 45, 58, 17, 62, 11, 62, 45, 58, 39, 52, 17, 41, 27, 41, 23, 15, 11, 41, 19, 37, 19, 34, 19, 30, 19, 30, 30, 28, 30, 28, 19, 24, 19, 34, 30, 37, 23, 37, 27, 25, 37, 24, 30, 35, 58, 35, 54, 42, 54, 42, 56, 55, 58, 51, 56, 20, 45, 25, 41, 20, 60, 2, 60, 2, 54, 16, 54, 16, 47, 12, 47, 12, 29, 12, 16, 7, 29, 7, 16, 12, 2, 15, 2 )
+polygons = [ IntArray( 0, 1, 2, 3, 4, 5, 6 ), IntArray( 7, 8, 9, 10 ), IntArray( 11, 5, 4, 12 ), IntArray( 13, 11, 12 ), IntArray( 14, 8, 7, 11 ), IntArray( 10, 9, 6, 5 ), IntArray( 11, 13, 15 ), IntArray( 14, 11, 15, 16 ), IntArray( 14, 16, 17 ), IntArray( 14, 17, 18 ), IntArray( 18, 19, 20, 21 ), IntArray( 14, 18, 21 ), IntArray( 14, 21, 22 ), IntArray( 23, 17, 16, 24 ), IntArray( 24, 13, 12, 25 ), IntArray( 23, 24, 25 ), IntArray( 23, 25, 3, 2 ), IntArray( 19, 23, 2, 26 ), IntArray( 20, 19, 26 ), IntArray( 27, 20, 26 ), IntArray( 28, 29, 30, 31 ), IntArray( 32, 28, 31, 33 ), IntArray( 6, 32, 33, 0 ), IntArray( 1, 0, 34, 35 ), IntArray( 36, 37, 38, 39 ), IntArray( 34, 36, 39, 40 ), IntArray( 26, 35, 34, 40, 41, 42, 27 ), IntArray( 14, 22, 27, 42, 43 ), IntArray( 42, 44, 45, 43 ), IntArray( 14, 43, 46, 47 ) ]
+outlines = [ Vector2Array( 15, 2, 12, 2, 12, 16, 7, 16, 7, 29, 12, 29, 12, 47, 16, 47, 16, 54, 2, 54, 2, 60, 20, 60, 20, 45, 51, 45, 51, 56, 42, 56, 42, 54, 35, 54, 35, 58, 55, 58, 55, 45, 62, 45, 62, 11, 15, 11 ), Vector2Array( 24, 19, 24, 30, 28, 30, 28, 19 ), Vector2Array( 34, 19, 30, 19, 30, 30, 34, 30 ), Vector2Array( 32, 37, 25, 37, 25, 41, 32, 41 ), Vector2Array( 37, 19, 37, 23, 41, 23, 41, 19 ), Vector2Array( 37, 27, 37, 31, 41, 31, 41, 27 ), Vector2Array( 58, 17, 52, 17, 52, 39, 58, 39 ) ]
 
 [node name="world" type="Node2D"]
 
@@ -148,6 +150,7 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="tunnel" type="Particles2D" parent="overlay"]
 
@@ -335,6 +338,15 @@ polygon = Vector2Array( 20.4, 38.3, 20.4, 40.3, 25.4, 40.3, 25.4, 38.3 )
 shape_range = Vector2( 24, 24 )
 trigger = false
 
+[node name="nav" type="Navigation2D" parent="map"]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="map/nav"]
+
+navpoly = SubResource( 26 )
+enabled = true
+
 [node name="player" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 32, 32 )
@@ -366,7 +378,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 26 )
+config/samples = ExtResource( 6 )
 config/pitch_random = 0.0
 
 [node name="xhair" type="Sprite" parent="."]
@@ -376,28 +388,25 @@ transform/pos = Vector2( 32, 32 )
 texture = ExtResource( 7 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 
-[node name="mook" parent="." instance=ExtResource( 8 )]
+[node name="mooks" type="Control" parent="."]
 
-transform/pos = Vector2( 12, 42 )
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
 
-[node name="mook1" parent="." instance=ExtResource( 8 )]
+[node name="mook" parent="mooks" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 12, 32 )
+transform/pos = Vector2( 13, 4 )
 
-[node name="mook2" parent="." instance=ExtResource( 8 )]
+[node name="mook1" parent="mooks" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 22, 52 )
+transform/pos = Vector2( 4, 57 )
 
-[node name="mook3" parent="." instance=ExtResource( 8 )]
+[node name="mook2" parent="mooks" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 42, 22 )
-
-[node name="mook3 2" parent="." instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 42, 12 )
-
-[node name="mook3 3" parent="." instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 52, 32 )
+transform/pos = Vector2( 36, 56 )
 
 

@@ -9,12 +9,13 @@ var shoot_timer = 0
 var shoot_time = 1.0
 
 var accel = 48
-var top_speed = 40
+var top_speed = 20
 
 
 
 func _ready():
 	get_parent().sounds.append(get_node('shoot'))
+	get_parent().player = self
 	pass
 
 func _integrate_forces(state):
