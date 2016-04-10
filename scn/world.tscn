@@ -142,6 +142,7 @@ outlines = [ Vector2Array( 15, 2, 12, 2, 12, 16, 7, 16, 7, 29, 12, 29, 12, 47, 1
 
 [node name="world" type="Node2D"]
 
+transform/pos = Vector2( 0, 1 )
 script/script = ExtResource( 1 )
 
 [node name="overlay" type="CanvasLayer" parent="."]
@@ -270,7 +271,6 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
-__meta__ = { "_editor_collapsed":true }
 
 [node name="Sprite" type="Sprite" parent="map"]
 
@@ -349,7 +349,7 @@ enabled = true
 
 [node name="player" parent="." instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 32, 32 )
+transform/pos = Vector2( 29, 43 )
 
 [node name="camera" type="Camera2D" parent="player"]
 
@@ -407,6 +407,10 @@ transform/pos = Vector2( 4, 57 )
 
 [node name="mook2" parent="mooks" instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 36, 56 )
+transform/pos = Vector2( 39, 17 )
+
+[node name="mook3" parent="mooks" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 60, 14 )
 
 

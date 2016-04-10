@@ -39,7 +39,8 @@ func _process(delta):
 	var lv = get_node('player').get_linear_velocity()
 	diff = (abs(diff.x)+abs(diff.y)+abs(lv.x)+abs(lv.y))/4
 	diff = clamp(diff,0.01,1.0)
-	
+	if player.dead:
+		diff = 1.0
 	OS.set_time_scale(diff)
 	
 	for s in sounds:
