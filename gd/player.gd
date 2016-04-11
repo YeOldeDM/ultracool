@@ -12,6 +12,10 @@ var can_shoot= true
 var shoot_timer = 0
 var shoot_time = 1.0
 
+var can_hop = true
+var hop_timer = 0
+var hop_time = 5.0
+
 var accel = 48
 var top_speed = 20
 
@@ -20,7 +24,16 @@ var dead=false
 func _ready():
 	get_parent().sounds.append(get_node('shoot'))
 	get_parent().player = self
+	set_fixed_process(true)
 	pass
+
+func _fixed_process(delta):
+	var HOP = Input.is_action_pressed('hop_swap')
+	if HOP and can_hop and world.hop_target and world.hop_target.has_fov:
+		can_hop = false
+		hop_timer = 0
+		world.hop_swap()
+		print("HOP SWAP!")
 
 func _integrate_forces(state):
 	if !dead:
@@ -33,11 +46,16 @@ func _integrate_forces(state):
 			if shoot_timer >= shoot_time:
 				can_shoot = true
 				#shoot_label.set_text("CAN SHOOT")
+		if not can_hop:
+			hop_timer += delta
+			if hop_timer >= hop_time:
+				can_hop = true
 		var UP = Input.is_action_pressed('up')
 		var DOWN = Input.is_action_pressed('down')
 		var LEFT = Input.is_action_pressed('left')
 		var RIGHT = Input.is_action_pressed('right')
 		var SHOOT = Input.is_action_pressed('shoot')
+
 	
 		if UP and !DOWN:
 			lv.y -= spd
@@ -81,6 +99,10 @@ func _integrate_forces(state):
 			B.set_pos(get_pos())
 			get_parent().add_child(B)
 			B.fire(self,get_parent().get_node('xhair').get_pos())
+		
+
+			
+			
 
 func kill():
 	dead = true

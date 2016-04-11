@@ -11,6 +11,7 @@ onready var nav = get_node('map/nav')
 onready var mooks = get_node('mooks').get_children()
 
 var player
+var hop_target
 
 var mpos
 var old_mpos
@@ -56,17 +57,20 @@ func find_path_to_player(from):
 	var from_pos = from.get_pos()
 	var to_pos = player.get_pos()
 	return nav.get_simple_path(from_pos,to_pos)
-	#PATHFINDING TEST -- DELETE ME SOON!
-#	var mook = get_node('mook').get_pos()
-#	var player = get_node('player').get_pos()
-#	path = nav.get_simple_path(mook,player)
-#	update()
-#func _draw():
-#	for p in range(1,path.size()):
-#		draw_line(path[p-1],path[p],Color(0,1,0,0.5))
+
+func hop_swap():
+	var player_pos = player.get_pos()
+	var hop_pos = hop_target.get_pos()
+	hop_target.set_pos(player_pos)
+	player.set_pos(hop_pos)
+
+	
 func _draw():
 	for m in mooks:
 		for p in range(1,m.path.size()):
 			draw_line(m.path[p-1],m.path[p],Color(0,1,0,0.5))
 
 
+func _on_xhair_body_enter( body ):
+	if body.has_method('kill') && !body.dead && body != player:
+		hop_target = body
