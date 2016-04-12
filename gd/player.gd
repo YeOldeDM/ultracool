@@ -16,7 +16,7 @@ var can_hop = true
 var hop_timer = 0
 var hop_time = 5.0
 
-var accel = 48
+var accel = 60
 var top_speed = 20
 
 var dead=false
@@ -29,11 +29,12 @@ func _ready():
 
 func _fixed_process(delta):
 	var HOP = Input.is_action_pressed('hop_swap')
-	if HOP and can_hop and world.hop_target and world.hop_target.has_fov:
-		can_hop = false
-		hop_timer = 0
-		world.hop_swap()
-		print("HOP SWAP!")
+	if world.hop_target and world.hop_target in world.mooks and world.hop_target.has_fov:
+		if HOP and can_hop:
+			can_hop = false
+			hop_timer = 0
+			world.hop_swap()
+			print("HOP SWAP!")
 
 func _integrate_forces(state):
 	if !dead:
@@ -87,7 +88,9 @@ func _integrate_forces(state):
 		
 		lv.x = clamp(lv.x,-top_speed,top_speed)
 		lv.y = clamp(lv.y,-top_speed,top_speed)
-		
+		if UP or DOWN or LEFT or RIGHT:
+			var ts = OS.get_time_scale()
+			lv *= 1+(1-ts)
 		set_linear_velocity(lv)
 
 		if SHOOT and can_shoot:

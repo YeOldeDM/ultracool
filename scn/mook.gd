@@ -1,6 +1,8 @@
 
 extends RigidBody2D
 
+var spawner
+
 var speed = 14
 
 var shoot_time = 3.0
@@ -19,7 +21,7 @@ var has_fov = false
 
 var dead = false
 var path = []
-var draw_path = true
+var draw_path = false
 
 func _ready():
 	world.sounds.append(kill)
@@ -30,7 +32,7 @@ func _fixed_process(delta):
 	if dead and !kill.is_voice_active(0):
 		_die()
 	elif !world.player.dead:
-		if path.size() > 1 and has_fov:
+		if path.size() > 2:
 			run_to(delta,path[1])
 		if can_shoot:
 			if has_fov and !dead:
@@ -75,6 +77,7 @@ func _die():
 	world.sounds.remove(world.sounds.find(kill))
 	world.sounds.remove(world.sounds.find(shoot))
 	world.mooks.remove(world.mooks.find(self))
+	spawner.start_spawn()
 	queue_free()
 
 func get_path():

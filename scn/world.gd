@@ -10,6 +10,8 @@ onready var xhair = get_node('xhair')
 onready var nav = get_node('map/nav')
 onready var mooks = get_node('mooks').get_children()
 
+onready var hopswap_label = get_node('overlay/HUD/hopswap')
+
 var player
 var hop_target
 
@@ -50,13 +52,42 @@ func _process(delta):
 	
 	old_mpos = mpos
 	xhair.set_pos(mpos)
+	var col = xhair.get_node('col').get_overlapping_bodies()
+	if !col.empty():
+		for c in col:
+			if c.has_method('kill') && !c.dead && c != player:
+				if c.has_fov and player.can_hop:
+					hop_target = c
+					c.draw_path=true
+					show_hopswap_label()
+					return
+				hop_target = null
+	else:
+		hop_target = null
+
+	if hop_target:
+		show_hopswap_label()
+	else:
+		hide_hopswap_label()
+
 	if DRAW_PATHS:
 		update()
-	
+
+func find_mooks():
+	mooks = get_node('mooks').get_children()
+
 func find_path_to_player(from):
 	var from_pos = from.get_pos()
 	var to_pos = player.get_pos()
 	return nav.get_simple_path(from_pos,to_pos)
+
+func show_hopswap_label():
+	if !hopswap_label.is_visible():
+		hopswap_label.show()
+
+func hide_hopswap_label():
+	if hopswap_label.is_visible():
+		hopswap_label.hide()
 
 func hop_swap():
 	var player_pos = player.get_pos()
@@ -67,10 +98,12 @@ func hop_swap():
 	
 func _draw():
 	for m in mooks:
-		for p in range(1,m.path.size()):
-			draw_line(m.path[p-1],m.path[p],Color(0,1,0,0.5))
+		if m.draw_path:
+			for p in range(1,m.path.size()):
+				draw_line(m.path[p-1],m.path[p],Color(0,0,0.8,0.5))
 
 
 func _on_xhair_body_enter( body ):
 	if body.has_method('kill') && !body.dead && body != player:
 		hop_target = body
+

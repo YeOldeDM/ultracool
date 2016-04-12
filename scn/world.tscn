@@ -1,13 +1,14 @@
-[gd_scene load_steps=36 format=1]
+[gd_scene load_steps=37 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
-[ext_resource path="res://gfx/faces.png" type="Texture" id=2]
-[ext_resource path="res://gd/face.gd" type="Script" id=3]
-[ext_resource path="res://gfx/map01.png" type="Texture" id=4]
-[ext_resource path="res://scn/player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=6]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=7]
-[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=8]
+[ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
+[ext_resource path="res://gfx/faces.png" type="Texture" id=3]
+[ext_resource path="res://gd/face.gd" type="Script" id=4]
+[ext_resource path="res://gfx/map01.png" type="Texture" id=5]
+[ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scn/player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=8]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -147,7 +148,6 @@ points = Vector2Array( 0, -2, 1, -1, 1, 0, 0, 1, -1, 1, -2, 0, -2, -1, -1, -2 )
 
 [node name="world" type="Node2D"]
 
-transform/pos = Vector2( 0, 1 )
 script/script = ExtResource( 1 )
 
 [node name="overlay" type="CanvasLayer" parent="."]
@@ -156,7 +156,33 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-__meta__ = { "_editor_collapsed":true }
+
+[node name="HUD" type="Control" parent="overlay"]
+
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="hopswap" type="Label" parent="overlay/HUD"]
+
+visibility/blend_mode = 1
+margin/top = 28.0
+margin/right = 64.0
+margin/bottom = 38.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.127045, 0.516723, 0.707031, 1 )
+text = "E - Hop-Swap"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 [node name="tunnel" type="Particles2D" parent="overlay"]
 
@@ -187,10 +213,10 @@ color/color = Color( 0.313812, 0.683015, 0.710938, 0.0389873 )
 
 visibility/opacity = 0.1
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
-script/script = ExtResource( 3 )
+script/script = ExtResource( 4 )
 
 [node name="map" type="StaticBody2D" parent="."]
 
@@ -277,10 +303,11 @@ constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
 
-[node name="Sprite" type="Sprite" parent="map"]
+[node name="visual" type="Sprite" parent="map"]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 centered = false
+modulate = Color( 0.519531, 0.519531, 0.519531, 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map"]
 
@@ -352,7 +379,11 @@ __meta__ = { "_editor_collapsed":true }
 navpoly = SubResource( 26 )
 enabled = true
 
-[node name="player" parent="." instance=ExtResource( 5 )]
+[node name="mook_spawner" parent="map" instance=ExtResource( 6 )]
+
+transform/pos = Vector2( 10, 19 )
+
+[node name="player" parent="." instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 29, 43 )
 
@@ -383,17 +414,17 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = ExtResource( 6 )
+config/samples = ExtResource( 8 )
 config/pitch_random = 0.0
 
 [node name="xhair" type="Sprite" parent="."]
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 
-[node name="Area2D" type="Area2D" parent="xhair"]
+[node name="col" type="Area2D" parent="xhair"]
 
 input/pickable = true
 shapes/0/shape = SubResource( 27 )
@@ -404,7 +435,7 @@ gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="xhair/Area2D"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="xhair/col"]
 
 build_mode = 0
 polygon = Vector2Array( -1, -2, -2, -1, -2, 0, -1, 1, 0, 1, 1, 0, 1, -1, 0, -2 )
@@ -419,24 +450,7 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_editor_collapsed":true }
 
-[node name="mook" parent="mooks" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 13, 4 )
-
-[node name="mook1" parent="mooks" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 4, 57 )
-
-[node name="mook2" parent="mooks" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 39, 17 )
-
-[node name="mook3" parent="mooks" instance=ExtResource( 8 )]
-
-transform/pos = Vector2( 60, 14 )
-
-[connection signal="body_enter" from="xhair/Area2D" to="." method="_on_xhair_body_enter"]
+[connection signal="body_enter" from="xhair/col" to="." method="_on_xhair_body_enter"]
 
 
