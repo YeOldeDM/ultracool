@@ -8,6 +8,7 @@ onready var music = get_node('music')
 onready var env = get_node('env')
 onready var xhair = get_node('xhair')
 onready var nav = get_node('map/nav')
+onready var player_start = get_node('map/player_start').get_pos()
 onready var mooks = get_node('mooks').get_children()
 
 onready var hopswap_label = get_node('overlay/HUD/hopswap')
@@ -31,7 +32,7 @@ func _ready():
 	Input.warp_mouse_pos(center)
 	mpos = get_viewport().get_mouse_pos()
 	old_mpos = get_viewport().get_mouse_pos()
-	
+	player.set_pos(player_start)
 	set_process(true)
 
 		

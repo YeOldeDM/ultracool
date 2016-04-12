@@ -5,6 +5,7 @@ onready var world = get_parent()
 onready var gib = preload('res://scn/gib.tscn')
 onready var bullet = preload('res://scn/bullet.tscn')
 onready var sprite = get_node('sprite')
+onready var my_color = sprite.get_modulate()
 onready var animator = get_node('animator')
 onready var shoot = get_node('shoot')
 
@@ -29,12 +30,15 @@ func _ready():
 
 func _fixed_process(delta):
 	var HOP = Input.is_action_pressed('hop_swap')
+	var RESTART = Input.is_action_pressed('restart')
 	if world.hop_target and world.hop_target in world.mooks and world.hop_target.has_fov:
 		if HOP and can_hop:
 			can_hop = false
 			hop_timer = 0
 			world.hop_swap()
 			print("HOP SWAP!")
+	if RESTART and dead:
+		respawn()
 
 func _integrate_forces(state):
 	if !dead:
@@ -106,6 +110,12 @@ func _integrate_forces(state):
 
 			
 			
+func respawn():
+	set_pos(world.player_start)
+	dead = false
+	sprite.set_modulate(my_color)
+	animator.play('walk')
+	set_opacity(1)
 
 func kill():
 	dead = true
@@ -124,8 +134,6 @@ func _die():
 		G.set_pos(get_pos())
 		G.sprite.set_color(sprite.get_modulate())
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))
-	#world.sounds.remove(world.sounds.find(kill))
-	world.sounds.remove(world.sounds.find(shoot))
 	set_opacity(0.0)
 	
 

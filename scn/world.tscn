@@ -383,6 +383,10 @@ enabled = true
 
 transform/pos = Vector2( 10, 19 )
 
+[node name="player_start" type="Position2D" parent="map"]
+
+transform/pos = Vector2( 50, 42 )
+
 [node name="player" parent="." instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 29, 43 )
