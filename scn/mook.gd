@@ -32,7 +32,7 @@ func _fixed_process(delta):
 	if dead and !kill.is_voice_active(0):
 		_die()
 	elif !world.player.dead:
-		if path.size() > 2:
+		if path.size() > 1:
 			run_to(delta,path[1])
 		if can_shoot:
 			if has_fov and !dead:

@@ -31,7 +31,7 @@ func _ready():
 func _fixed_process(delta):
 	var HOP = Input.is_action_pressed('hop_swap')
 	var RESTART = Input.is_action_pressed('restart')
-	if world.hop_target and world.hop_target in world.mooks and world.hop_target.has_fov:
+	if world.hop_target in world.mooks and world.hop_target.has_fov:
 		if HOP and can_hop:
 			can_hop = false
 			hop_timer = 0
@@ -113,12 +113,14 @@ func _integrate_forces(state):
 func respawn():
 	set_pos(world.player_start)
 	dead = false
+	world.hide_respawn_label()
 	sprite.set_modulate(my_color)
 	animator.play('walk')
 	set_opacity(1)
 
 func kill():
 	dead = true
+	world.show_respawn_label()
 	get_node('sprite').set_modulate(Color(0,0,0.5,1))
 	get_node('animator').stop(false)
 	var lv = get_linear_velocity()*0.01

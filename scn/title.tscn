@@ -42,7 +42,7 @@ toggle_mode = false
 text = "Pl4y"
 flat = true
 
-[node name="options" type="Button" parent="."]
+[node name="help" type="Button" parent="."]
 
 margin/left = 12.0
 margin/top = 25.0
@@ -54,10 +54,10 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 custom_fonts/font = ExtResource( 2 )
 toggle_mode = false
-text = "0p+ion5"
+text = "h3LP"
 flat = true
 
-[node name="help" type="Button" parent="."]
+[node name="credits" type="Button" parent="."]
 
 margin/left = 12.0
 margin/top = 38.0
@@ -69,7 +69,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 custom_fonts/font = ExtResource( 2 )
 toggle_mode = false
-text = "H3lp"
+text = "cr3d1t5"
 flat = true
 
 [node name="quit" type="Button" parent="."]
@@ -88,6 +88,8 @@ text = "qui7"
 flat = true
 
 [connection signal="pressed" from="play" to="." method="_on_play_pressed"]
+
+[connection signal="pressed" from="help" to="." method="_on_help_pressed"]
 
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 

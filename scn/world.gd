@@ -12,6 +12,7 @@ onready var player_start = get_node('map/player_start').get_pos()
 onready var mooks = get_node('mooks').get_children()
 
 onready var hopswap_label = get_node('overlay/HUD/hopswap')
+onready var respawn_label = get_node('overlay/HUD/respawn')
 
 var player
 var hop_target
@@ -96,6 +97,12 @@ func hop_swap():
 	hop_target.set_pos(player_pos)
 	player.set_pos(hop_pos)
 
+func show_respawn_label():
+	if !respawn_label.is_visible():
+		respawn_label.show()
+func hide_respawn_label():
+	if respawn_label.is_visible():
+		respawn_label.hide()
 	
 func _draw():
 	for m in mooks:

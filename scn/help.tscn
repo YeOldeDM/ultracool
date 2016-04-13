@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://gd/help.gd" type="Script" id=1]
+[ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
+[ext_resource path="res://scn/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scn/mook.tscn" type="PackedScene" id=4]
+
+[node name="help" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+
+margin/top = 2.0
+margin/right = 64.0
+margin/bottom = 10.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+text = "- HELP.BAT -"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="player" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 16, 20 )
+script/script = null
+
+[node name="Label" type="Label" parent="player"]
+
+margin/left = -32.0
+margin/top = 4.0
+margin/right = 32.0
+margin/bottom = 12.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+text = "you"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="mook" parent="." instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 48, 24 )
+script/script = null
+
+[node name="Label" type="Label" parent="mook"]
+
+margin/left = -32.0
+margin/top = 4.0
+margin/right = 32.0
+margin/bottom = 12.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+text = "MOOK\n(not you)"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="back" type="Button" parent="."]
+
+margin/left = 12.0
+margin/top = 51.0
+margin/right = 52.0
+margin/bottom = 64.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+text = "go back"
+flat = true
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+
+
