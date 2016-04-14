@@ -1,14 +1,15 @@
-[gd_scene load_steps=38 format=1]
+[gd_scene load_steps=40 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
 [ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
 [ext_resource path="res://gfx/faces.png" type="Texture" id=3]
 [ext_resource path="res://gd/face.gd" type="Script" id=4]
-[ext_resource path="res://gfx/map01.png" type="Texture" id=5]
-[ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scn/player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=8]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=9]
+[ext_resource path="res://fnt/wendy_large.fnt" type="Font" id=5]
+[ext_resource path="res://gfx/map01.png" type="Texture" id=6]
+[ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scn/player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=9]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -20,6 +21,21 @@ tracks/0/type = "value"
 tracks/0/path = NodePath(".:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.5 ), "transitions":FloatArray( 1, 1 ), "values":[ 1.0, 0.0 ] }
+
+[sub_resource type="Animation" id=29]
+
+resource/name = "blink"
+length = 3.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:custom_colors/font_color")
+tracks/0/interp = 1
+tracks/0/keys = { "cont":true, "times":FloatArray( 0, 0.8, 2 ), "transitions":FloatArray( 1, 1, 1 ), "values":[ Color( 0.503906, 0, 0, 0 ), Color( 1, 0.328125, 0.328125, 1 ), Color( 0.0956416, 0.0844879, 0.441406, 0 ) ] }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../face:modulate")
+tracks/1/interp = 1
+tracks/1/keys = { "cont":true, "times":FloatArray( 0, 0.5, 0.8, 2.8, 3 ), "transitions":FloatArray( 1, 1, 1, 1, 1 ), "values":[ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.462649 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ] }
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 
@@ -259,7 +275,36 @@ transform/pos = Vector2( 32, 32 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 4
+modulate = Color( 1, 1, 1, 0 )
 script/script = ExtResource( 4 )
+
+[node name="score" type="Label" parent="overlay"]
+
+visibility/blend_mode = 1
+margin/right = 64.0
+margin/bottom = 64.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0.0956416, 0.0844879, 0.441406, 0 )
+text = "10"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="animator" type="AnimationPlayer" parent="overlay/score"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/blink = SubResource( 29 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 [node name="map" type="StaticBody2D" parent="."]
 
@@ -345,10 +390,11 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
 
 [node name="visual" type="Sprite" parent="map"]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 centered = false
 modulate = Color( 0.519531, 0.519531, 0.519531, 1 )
 
@@ -422,7 +468,7 @@ __meta__ = { "_editor_collapsed":true }
 navpoly = SubResource( 27 )
 enabled = true
 
-[node name="mook_spawner" parent="map" instance=ExtResource( 6 )]
+[node name="mook_spawner" parent="map" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 5, 57 )
 
@@ -430,15 +476,15 @@ transform/pos = Vector2( 5, 57 )
 
 transform/pos = Vector2( 50, 42 )
 
-[node name="mook_spawner1" parent="map" instance=ExtResource( 6 )]
+[node name="mook_spawner1" parent="map" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 59, 14 )
 
-[node name="mook_spawner2" parent="map" instance=ExtResource( 6 )]
+[node name="mook_spawner2" parent="map" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 9, 18 )
 
-[node name="player" parent="." instance=ExtResource( 7 )]
+[node name="player" parent="." instance=ExtResource( 8 )]
 
 transform/pos = Vector2( 29, 43 )
 
@@ -469,14 +515,14 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = ExtResource( 8 )
+config/samples = ExtResource( 9 )
 config/pitch_random = 0.0
 
 [node name="xhair" type="Sprite" parent="."]
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 __meta__ = { "_editor_collapsed":true }
 
@@ -499,6 +545,15 @@ shape_range = Vector2( 0, 0 )
 trigger = false
 
 [node name="mooks" type="Control" parent="."]
+
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="bullets" type="Control" parent="."]
 
 margin/right = 40.0
 margin/bottom = 40.0

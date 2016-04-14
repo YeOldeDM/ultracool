@@ -10,6 +10,7 @@ func _input(event):
 		_next()
 
 func _next():
+	Input.warp_mouse_pos(Vector2(0,0))
 	get_parent().load_scene('res://scn/title.tscn')
 
 

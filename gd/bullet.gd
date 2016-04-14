@@ -1,6 +1,7 @@
 
 extends RigidBody2D
 
+var owner = null	#who shot this bullet?
 const SPEED = 50
 
 var splode = preload('res://scn/splode.tscn')
@@ -18,4 +19,6 @@ func _on_bullet_body_enter( body ):
 	var s = splode.instance()
 	get_parent().add_child(s)
 	s.set_pos(get_pos())
+	if owner:
+		owner.my_bullet = null
 	queue_free()

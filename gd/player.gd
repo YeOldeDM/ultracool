@@ -12,6 +12,7 @@ onready var shoot = get_node('shoot')
 var can_shoot= true
 var shoot_timer = 0
 var shoot_time = 1.0
+var my_bullet=null
 
 var can_hop = true
 var hop_timer = 0
@@ -31,12 +32,14 @@ func _ready():
 func _fixed_process(delta):
 	var HOP = Input.is_action_pressed('hop_swap')
 	var RESTART = Input.is_action_pressed('restart')
-	if world.hop_target in world.mooks and world.hop_target.has_fov:
-		if HOP and can_hop:
-			can_hop = false
-			hop_timer = 0
-			world.hop_swap()
-			print("HOP SWAP!")
+	if world.hop_target in world.mooks:
+		if world.hop_target:
+			if world.hop_target.has_fov:
+				if HOP and can_hop:
+					can_hop = false
+					hop_timer = 0
+					world.hop_swap()
+					print("HOP SWAP!")
 	if RESTART and dead:
 		respawn()
 
@@ -103,6 +106,8 @@ func _integrate_forces(state):
 			can_shoot = false
 			shoot_timer = 0
 			var B = bullet.instance()
+			B.owner = self
+			my_bullet = B
 			B.set_pos(get_pos())
 			get_parent().add_child(B)
 			B.fire(self,get_parent().get_node('xhair').get_pos())
@@ -120,6 +125,8 @@ func respawn():
 
 func kill():
 	dead = true
+	if my_bullet:
+		my_bullet.owner = null
 	world.show_respawn_label()
 	get_node('sprite').set_modulate(Color(0,0,0.5,1))
 	get_node('animator').stop(false)
@@ -132,11 +139,12 @@ func _die():
 	set_linear_velocity(lv)
 	for i in range(6):
 		var G = gib.instance()
-		get_parent().add_child(G)
+		get_parent().get_node('bullets').add_child(G)
 		G.set_pos(get_pos())
 		G.sprite.set_color(sprite.get_modulate())
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))
 	set_opacity(0.0)
+	world.reset_score()
 	
 
 

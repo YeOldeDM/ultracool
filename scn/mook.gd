@@ -8,6 +8,7 @@ var speed = 14
 var shoot_time = 3.0
 var shoot_timer = 0
 var can_shoot = true
+var my_bullet=null
 
 onready var world = get_node('../../')
 onready var gib = preload('res://scn/gib.tscn')
@@ -46,7 +47,10 @@ func _fixed_process(delta):
 				can_shoot = true
 
 	var space_state = get_world_2d().get_direct_space_state()
-	var result = space_state.intersect_ray(get_global_pos(),world.player.get_pos(),[self,world.player])
+	var exception_list = [self,world.player]
+	for B in world.get_node('bullets').get_children():
+		exception_list.append(B)
+	var result = space_state.intersect_ray(get_global_pos(),world.player.get_pos(),exception_list)
 	if result.empty():
 		has_fov = true
 	else:
@@ -60,6 +64,8 @@ func run_to(delta,pos):
 func kill():
 	kill.play('kill')
 	dead = true
+	if my_bullet:
+		my_bullet.owner = null
 	get_node('sprite').set_modulate(Color(0.5,0,0,1))
 	get_node('animator').stop(false)
 	var lv = get_linear_velocity()*0.1
@@ -76,9 +82,10 @@ func _die():
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))
 	world.sounds.remove(world.sounds.find(kill))
 	world.sounds.remove(world.sounds.find(shoot))
-	world.mooks.remove(world.mooks.find(self))
 	spawner.start_spawn()
 	queue_free()
+	world.find_mooks()
+	world.score()
 
 func get_path():
 	path = world.find_path_to_player(self)
@@ -89,6 +96,8 @@ func _on_Timer_timeout():
 
 func fire():
 	var B = bullet.instance()
+	B.owner = self
+	my_bullet = B
 	B.set_pos(get_pos())
-	world.add_child(B)
+	world.get_node('bullets').add_child(B)
 	B.fire(self,world.player.get_pos())

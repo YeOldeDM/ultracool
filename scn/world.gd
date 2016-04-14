@@ -4,6 +4,7 @@ extends Node2D
 var timescale = true
 var sounds = []
 var soundtrack = 'sord'
+onready var game = get_node('/root/Game')
 onready var music = get_node('music')
 onready var env = get_node('env')
 onready var xhair = get_node('xhair')
@@ -75,8 +76,18 @@ func _process(delta):
 	if DRAW_PATHS:
 		update()
 
+func score():
+	game.score += 1
+	get_node('overlay/score').set_text(str(game.score))
+	get_node('overlay/score').get_node('animator').play('blink')
+
+func reset_score():
+	game.score = 0
+	
 func find_mooks():
 	mooks = get_node('mooks').get_children()
+#	for M in ref:
+#		mooks.append(weakref(M))
 
 func find_path_to_player(from):
 	var from_pos = from.get_pos()
@@ -94,6 +105,11 @@ func hide_hopswap_label():
 func hop_swap():
 	var player_pos = player.get_pos()
 	var hop_pos = hop_target.get_pos()
+	#allow actors to shoot themselves after hop-swapping
+	if player.my_bullet:
+		PS2D.body_remove_collision_exception(player.get_rid(),player.my_bullet.get_rid())
+	if hop_target.my_bullet:
+		PS2D.body_remove_collision_exception(hop_target.get_rid(),hop_target.my_bullet.get_rid())
 	hop_target.set_pos(player_pos)
 	player.set_pos(hop_pos)
 
