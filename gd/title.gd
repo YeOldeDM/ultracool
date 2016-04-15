@@ -16,3 +16,7 @@ func _on_quit_pressed():
 
 func _on_help_pressed():
 	get_parent().load_scene('res://scn/help.tscn')
+
+
+func _on_credits_pressed():
+	get_parent().load_scene('res://scn/credits.tscn')

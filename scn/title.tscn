@@ -91,6 +91,8 @@ flat = true
 
 [connection signal="pressed" from="help" to="." method="_on_help_pressed"]
 
+[connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
+
 [connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
 
 
