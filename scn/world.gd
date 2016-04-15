@@ -11,6 +11,7 @@ onready var xhair = get_node('xhair')
 onready var nav = get_node('map/nav')
 onready var player_start = get_node('map/player_start').get_pos()
 onready var mooks = get_node('mooks').get_children()
+onready var spawners = get_node('map/spawners').get_children()
 
 onready var hopswap_label = get_node('overlay/HUD/hopswap')
 onready var respawn_label = get_node('overlay/HUD/respawn')
@@ -83,7 +84,24 @@ func score():
 
 func reset_score():
 	game.score = 0
-	
+
+func add_mook(mook):
+	mooks.append(mook)
+	get_node('mooks').add_child(mook)
+	for node in mook.get_children():
+		if node extends SamplePlayer2D:
+			sounds.append(node)
+
+func remove_mook(mook):
+	if mook.my_bullet:
+		mook.my_bullet.owner = null
+		mook.my_bullet = null
+	for node in mook.get_children():
+		if node in sounds:
+			sounds.remove(sounds.find(node))
+	mooks.remove(mooks.find(mook))
+	mook.queue_free()
+
 func find_mooks():
 	mooks = get_node('mooks').get_children()
 #	for M in ref:
@@ -107,9 +125,9 @@ func hop_swap():
 	var hop_pos = hop_target.get_pos()
 	#allow actors to shoot themselves after hop-swapping
 	if player.my_bullet:
-		PS2D.body_remove_collision_exception(player.get_rid(),player.my_bullet.get_rid())
+		PS2D.body_remove_collision_exception(player.my_bullet.get_rid(),player.get_rid())
 	if hop_target.my_bullet:
-		PS2D.body_remove_collision_exception(hop_target.get_rid(),hop_target.my_bullet.get_rid())
+		PS2D.body_remove_collision_exception(hop_target.my_bullet.get_rid(),hop_target.get_rid())
 	hop_target.set_pos(player_pos)
 	player.set_pos(hop_pos)
 

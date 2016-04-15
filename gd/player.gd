@@ -116,6 +116,10 @@ func _integrate_forces(state):
 			
 			
 func respawn():
+	for mook in world.mooks:
+		world.remove_mook(mook)
+	for spawner in world.spawners:
+		spawner.start_spawn()
 	set_pos(world.player_start)
 	dead = false
 	world.hide_respawn_label()

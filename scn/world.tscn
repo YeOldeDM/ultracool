@@ -466,19 +466,29 @@ __meta__ = { "_editor_collapsed":true }
 navpoly = SubResource( 28 )
 enabled = true
 
-[node name="mook_spawner" parent="map" instance=ExtResource( 7 )]
-
-transform/pos = Vector2( 5, 57 )
-
 [node name="player_start" type="Position2D" parent="map"]
 
 transform/pos = Vector2( 50, 42 )
 
-[node name="mook_spawner1" parent="map" instance=ExtResource( 7 )]
+[node name="spawners" type="Control" parent="map"]
+
+margin/right = 40.0
+margin/bottom = 40.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
+
+[node name="mook_spawner" parent="map/spawners" instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 5, 57 )
+
+[node name="mook_spawner1" parent="map/spawners" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 59, 14 )
 
-[node name="mook_spawner2" parent="map" instance=ExtResource( 7 )]
+[node name="mook_spawner2" parent="map/spawners" instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 9, 18 )
 

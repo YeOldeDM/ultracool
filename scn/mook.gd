@@ -25,8 +25,8 @@ var path = []
 var draw_path = false
 
 func _ready():
-	world.sounds.append(kill)
-	world.sounds.append(shoot)
+	#world.sounds.append(kill)
+	#world.sounds.append(shoot)
 	set_fixed_process(true)
 
 func _fixed_process(delta):
@@ -74,6 +74,7 @@ func kill():
 func _die():
 	var lv = get_linear_velocity()*0.4
 	set_linear_velocity(lv)
+
 	for i in range(6):
 		var G = gib.instance()
 		get_parent().add_child(G)
@@ -83,9 +84,12 @@ func _die():
 	world.sounds.remove(world.sounds.find(kill))
 	world.sounds.remove(world.sounds.find(shoot))
 	spawner.start_spawn()
-	queue_free()
+
 	world.find_mooks()
-	world.score()
+	if !world.player.dead:
+		world.score()	#prevent scores after death (its weird)
+		
+	world.remove_mook(self)
 
 func get_path():
 	path = world.find_path_to_player(self)
