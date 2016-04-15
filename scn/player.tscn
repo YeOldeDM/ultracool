@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://gd/player.gd" type="Script" id=1]
 [ext_resource path="res://gfx/guy.png" type="Texture" id=2]
-[ext_resource path="res://sfx/laser_bullet_fire.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/8_bang.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/2_playerdeath_final.wav" type="Sample" id=4]
+[ext_resource path="res://sfx/6_hopswap.wav" type="Sample" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
@@ -23,6 +25,14 @@ tracks/0/keys = { "cont":false, "times":FloatArray( 0, 0.1, 0.2, 0.3 ), "transit
 [sub_resource type="SampleLibrary" id=3]
 
 samples/shoot = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
+
+[sub_resource type="SampleLibrary" id=4]
+
+samples/kill = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+
+[sub_resource type="SampleLibrary" id=5]
+
+samples/hop = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
 
 [node name="player" type="RigidBody2D"]
 
@@ -86,5 +96,27 @@ build_mode = 0
 polygon = Vector2Array( 0, -2, 1, 0, 0, 2, -1, 0 )
 shape_range = Vector2( 0, 0 )
 trigger = false
+
+[node name="kill" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 4 )
+config/pitch_random = 0.0
+
+[node name="hop" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 5 )
+config/pitch_random = 0.0
 
 

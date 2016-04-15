@@ -77,7 +77,7 @@ func _die():
 
 	for i in range(6):
 		var G = gib.instance()
-		get_parent().add_child(G)
+		world.add_child(G)
 		G.set_pos(get_pos())
 		G.sprite.set_color(sprite.get_modulate())
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))

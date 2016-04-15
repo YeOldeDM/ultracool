@@ -7,7 +7,10 @@ onready var bullet = preload('res://scn/bullet.tscn')
 onready var sprite = get_node('sprite')
 onready var my_color = sprite.get_modulate()
 onready var animator = get_node('animator')
+
 onready var shoot = get_node('shoot')
+onready var kill = get_node('kill')
+onready var hop = get_node('hop')
 
 var can_shoot= true
 var shoot_timer = 0
@@ -25,6 +28,8 @@ var dead=false
 
 func _ready():
 	get_parent().sounds.append(get_node('shoot'))
+	get_parent().sounds.append(get_node('kill'))
+	get_parent().sounds.append(get_node('hop'))
 	get_parent().player = self
 	set_fixed_process(true)
 	pass
@@ -39,7 +44,7 @@ func _fixed_process(delta):
 					can_hop = false
 					hop_timer = 0
 					world.hop_swap()
-					print("HOP SWAP!")
+					hop.play('hop')
 	if RESTART and dead:
 		respawn()
 
@@ -139,6 +144,7 @@ func kill():
 	_die()
 
 func _die():
+	kill.play('kill')
 	var lv = get_linear_velocity()*0.4
 	set_linear_velocity(lv)
 	for i in range(6):

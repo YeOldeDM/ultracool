@@ -2,9 +2,10 @@
 
 [ext_resource path="res://scn/bw_splash.gd" type="Script" id=1]
 [ext_resource path="res://gfx/bw_splash.png" type="Texture" id=2]
-[ext_resource path="res://sfx/bw.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/bw_jingle.wav" type="Sample" id=3]
 [ext_resource path="res://gfx/ultraduck.png" type="Texture" id=4]
 [ext_resource path="res://gfx/ducktalk.png" type="Texture" id=5]
+
 
 [sub_resource type="SampleLibrary" id=1]
 

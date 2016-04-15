@@ -14,6 +14,7 @@ var strings = [
 onready var text = get_node('text')
 onready var tick = get_node('tick')
 onready var stepper = get_node('stepper')
+onready var tap = get_node('tap')
 var step = 0
 
 func _ready():
@@ -21,7 +22,7 @@ func _ready():
 	new_text()
 
 func is_done():
-	if text.get_visible_characters() >= text.get_bbcode().length():
+	if text.get_visible_characters() >= text.get_total_character_count():
 		return true
 	return false
 
@@ -36,13 +37,14 @@ func new_text():
 func _on_tick_timeout():
 	if !is_done():
 		text.set_visible_characters(text.get_visible_characters()+1)
+		tap.play('tap')
 	else:
-		text.clear()
 		tick.stop()
 		stepper.start()
 
 
 func _on_stepper_timeout():
+	text.clear()
 	stepper.stop()
 	step += 1
 	if step <= strings.size()-1:

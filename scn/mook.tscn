@@ -2,8 +2,10 @@
 
 [ext_resource path="res://scn/mook.gd" type="Script" id=1]
 [ext_resource path="res://gfx/guy.png" type="Texture" id=2]
-[ext_resource path="res://sfx/laser_bullet_fire.wav" type="Sample" id=3]
-[ext_resource path="res://sfx/kill.wav" type="Sample" id=4]
+[ext_resource path="res://sfx/8_bang.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/1_mookdeath_final.wav" type="Sample" id=4]
+
+
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 

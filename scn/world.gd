@@ -25,12 +25,12 @@ var old_mpos
 var DRAW_PATHS = false
 
 func _ready():
-	sounds.append(music)
-	var st = music.get_sample_library().get_sample(soundtrack)
-	st.set_loop_begin(0)
-	st.set_loop_end(st.get_length())
-	st.set_loop_format(0)
-	music.play(soundtrack)
+#	sounds.append(music)
+#	var st = music.get_sample_library().get_sample(soundtrack)
+#	st.set_loop_begin(0)
+#	st.set_loop_end(st.get_length())
+#	st.set_loop_format(0)
+#	music.play(soundtrack)
 	var center = Vector2(256,256)
 	Input.warp_mouse_pos(center)
 	mpos = get_viewport().get_mouse_pos()

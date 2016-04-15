@@ -8,8 +8,11 @@ onready var mook = preload('res://scn/mook.tscn')
 
 onready var world = get_node('/root/Game/world')
 
+onready var spawn = get_node('spawn')
+
 var can_splode=true
 func _ready():
+	world.sounds.append(spawn)
 	start_spawn()	#bootstrap
 	set_process(true)
 
@@ -19,6 +22,7 @@ func _process(delta):
 	set_modulate(Color(R,R-1,1-R,1))
 	if timer.get_time_left() <= splode.get_lifetime():
 		if can_splode:
+			spawn.play('spawn')
 			splode.set_emitting(true)
 			can_splode=false
 

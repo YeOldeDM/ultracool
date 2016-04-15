@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=5 format=1]
 
 [ext_resource path="res://gd/credits.gd" type="Script" id=1]
 [ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
+[ext_resource path="res://sfx/7_typing.wav" type="Sample" id=3]
+
+[sub_resource type="SampleLibrary" id=1]
+
+samples/tap = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 
 [node name="credits" type="Node2D"]
 
@@ -35,6 +40,17 @@ process_mode = 1
 wait_time = 2.0
 one_shot = false
 autostart = false
+
+[node name="tap" type="SamplePlayer2D" parent="."]
+
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 2048.0
+params/attenuation/distance_exp = 1.0
+config/polyphony = 1
+config/samples = SubResource( 1 )
+config/pitch_random = 0.25
 
 [connection signal="timeout" from="tick" to="." method="_on_tick_timeout"]
 

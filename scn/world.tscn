@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=1]
+[gd_scene load_steps=39 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
 [ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://gfx/map01.png" type="Texture" id=6]
 [ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scn/player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scn/world_sample.res" type="SampleLibrary" id=9]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=10]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=9]
 
 [sub_resource type="Animation" id=1]
 
@@ -395,6 +394,7 @@ bounce = 0.0
 
 texture = ExtResource( 6 )
 centered = false
+modulate = Color( 0.753906, 0.753906, 0.753906, 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map"]
 
@@ -523,14 +523,14 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = ExtResource( 9 )
+config/samples = null
 config/pitch_random = 0.0
 
 [node name="xhair" type="Sprite" parent="."]
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 __meta__ = { "_editor_collapsed":true }
 

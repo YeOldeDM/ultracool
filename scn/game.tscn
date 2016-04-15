@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://gd/game.gd" type="Script" id=1]
 [ext_resource path="res://scn/world_env.res" type="Environment" id=2]
-[ext_resource path="res://sfx/cool.wav" type="Sample" id=3]
+[ext_resource path="res://sfx/kewl.wav" type="Sample" id=3]
 [ext_resource path="res://sfx/ultra.wav" type="Sample" id=4]
-[ext_resource path="res://gd/vbox.gd" type="Script" id=5]
 
 [sub_resource type="SampleLibrary" id=1]
 
@@ -41,6 +40,5 @@ params/attenuation/distance_exp = 1.0
 config/polyphony = 1
 config/samples = SubResource( 1 )
 config/pitch_random = 0.0
-script/script = ExtResource( 5 )
 
 
