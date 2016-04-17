@@ -2,8 +2,9 @@
 extends Node2D
 
 var timescale = true
+var time_scale
 var sounds = []
-var soundtrack = 'sord'
+var soundtrack = 'sond'
 onready var game = get_node('/root/Game')
 onready var music = get_node('music')
 onready var env = get_node('env')
@@ -12,6 +13,8 @@ onready var nav = get_node('map/nav')
 onready var player_start = get_node('map/player_start').get_pos()
 onready var mooks = get_node('mooks').get_children()
 onready var spawners = get_node('map/spawners').get_children()
+
+onready var menu = get_node('menu')
 
 onready var hopswap_label = get_node('overlay/HUD/hopswap')
 onready var respawn_label = get_node('overlay/HUD/respawn')
@@ -22,24 +25,35 @@ var hop_target
 var mpos
 var old_mpos
 
+var ts = 1.0
+
 var DRAW_PATHS = false
 
 func _ready():
-#	sounds.append(music)
+	sounds.append(music)
 #	var st = music.get_sample_library().get_sample(soundtrack)
 #	st.set_loop_begin(0)
 #	st.set_loop_end(st.get_length())
 #	st.set_loop_format(0)
-#	music.play(soundtrack)
+	music.play(soundtrack)
+	menu.hide()
+	get_tree().set_pause(false)
 	var center = Vector2(256,256)
 	Input.warp_mouse_pos(center)
 	mpos = get_viewport().get_mouse_pos()
 	old_mpos = get_viewport().get_mouse_pos()
 	player.set_pos(player_start)
 	set_process(true)
+	set_process_input(true)
 
+func _input(event):
+	var PAUSE = Input.is_action_pressed('pause')
+	if PAUSE:
+		get_tree().set_pause(true)
+		menu.show()
 		
 func _process(delta):
+
 	var mouse_pos = get_viewport().get_mouse_pos()
 	mpos = mouse_pos
 	var diff = mpos - old_mpos
@@ -50,9 +64,9 @@ func _process(delta):
 		diff = 1.0
 	OS.set_time_scale(diff)
 	
-	for s in sounds:
-		s.set('params/pitch_scale',diff)
-			
+	time_scale = diff
+	SoundManager.process_sound(music,diff)
+
 	
 	old_mpos = mpos
 	xhair.set_pos(mpos)
@@ -93,7 +107,7 @@ func add_mook(mook):
 			sounds.append(node)
 
 func remove_mook(mook):
-	if mook.my_bullet:
+	if mook.my_bullet != null:
 		mook.my_bullet.owner = null
 		mook.my_bullet = null
 	for node in mook.get_children():
@@ -102,8 +116,8 @@ func remove_mook(mook):
 	mooks.remove(mooks.find(mook))
 	mook.queue_free()
 
-func find_mooks():
-	mooks = get_node('mooks').get_children()
+func get_mooks():
+	return get_node('mooks').get_children()
 #	for M in ref:
 #		mooks.append(weakref(M))
 
@@ -149,3 +163,18 @@ func _on_xhair_body_enter( body ):
 	if body.has_method('kill') && !body.dead && body != player:
 		hop_target = body
 
+
+
+func _on_music_reset_timeout():
+	music.play(soundtrack)
+
+
+func _on_back_pressed():
+	get_tree().set_pause(false)
+	menu.hide()
+	
+
+
+func _on_quit_pressed():
+	get_tree().set_pause(false)
+	game.load_scene('res://scn/title.tscn')

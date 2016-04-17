@@ -47,7 +47,8 @@ func _fixed_process(delta):
 					hop.play('hop')
 	if RESTART and dead:
 		respawn()
-
+	for sound in [shoot,kill,hop]:
+		SoundManager.process_sound(sound,world.time_scale)
 func _integrate_forces(state):
 	if !dead:
 		var delta = state.get_step()
@@ -121,8 +122,10 @@ func _integrate_forces(state):
 			
 			
 func respawn():
-	for mook in world.mooks:
-		world.remove_mook(mook)
+	for mook in world.get_mooks():
+		mook.queue_free()
+	for bullet in world.get_node('bullets').get_children():
+		bullet.queue_free()
 	for spawner in world.spawners:
 		spawner.start_spawn()
 	set_pos(world.player_start)
@@ -134,8 +137,6 @@ func respawn():
 
 func kill():
 	dead = true
-	if my_bullet:
-		my_bullet.owner = null
 	world.show_respawn_label()
 	get_node('sprite').set_modulate(Color(0,0,0.5,1))
 	get_node('animator').stop(false)
@@ -149,7 +150,7 @@ func _die():
 	set_linear_velocity(lv)
 	for i in range(6):
 		var G = gib.instance()
-		get_parent().get_node('bullets').add_child(G)
+		get_node('/root/Game/world').add_child(G)
 		G.set_pos(get_pos())
 		G.sprite.set_color(sprite.get_modulate())
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))

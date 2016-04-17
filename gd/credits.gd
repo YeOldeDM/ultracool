@@ -3,10 +3,11 @@ extends Node2D
 
 var strings = [
 "[center]Made in two weeks for\nitch.io\n#LOWREZJAM2016[/center]",
-"[center]Based on the game\n[color=red]superhot[/color]\n(its better than this!)[/center]",
+"[center]Based on the game\n[color=red]superhot[/color]\n(its better than this)[/center]",
 "[center][color=aqua]Engine By[/color]\nGodot\n[img]res://gfx/godot16.png[/img]\ngodotengine.org[/center]",
 "[center][color=aqua]Design,GFX,SFX & Code[/color]\nYeOldeDM[/center]",
-"[center][color=aqua]QA[/color]\nAngular_Mike[/center]",
+"[center][color=aqua]Quality Assurance[/color]\nAngular_Mike \nDr. Facemelt \nZojak[/center]",
+"[center][color=aqua]SPECIAL THANKS[/color]\nDevi Ever \n+\nHome for \nBlacksheep[/center]",
 "[center][color=aqua]SPECIAL THANKS[/color]\nall the cool peepz @ #godotengine[/center]",
 "[center][color=aqua]AND[/color]\n\nYou\n(yeah, you!)[/center]",
 ]
@@ -20,6 +21,11 @@ var step = 0
 func _ready():
 	text.set_scroll_active(false)
 	new_text()
+	set_process_input(true)
+
+func _input(event):
+	if Input.is_action_pressed('exit'):
+		get_node('/root/Game').load_scene('res://scn/title.tscn')
 
 func is_done():
 	if text.get_visible_characters() >= text.get_total_character_count():

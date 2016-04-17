@@ -5,8 +5,6 @@
 [ext_resource path="res://sfx/8_bang.wav" type="Sample" id=3]
 [ext_resource path="res://sfx/1_mookdeath_final.wav" type="Sample" id=4]
 
-
-
 [sub_resource type="ConvexPolygonShape2D" id=1]
 
 custom_solver_bias = 0.0
@@ -60,7 +58,7 @@ script/script = ExtResource( 1 )
 
 texture = ExtResource( 2 )
 hframes = 4
-frame = 1
+frame = 3
 modulate = Color( 1, 0.253906, 0.253906, 1 )
 
 [node name="animator" type="AnimationPlayer" parent="."]
@@ -109,6 +107,13 @@ process_mode = 1
 wait_time = 0.5
 one_shot = false
 autostart = true
+
+[node name="die_timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 0.4
+one_shot = false
+autostart = false
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

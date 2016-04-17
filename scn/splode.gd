@@ -17,5 +17,6 @@ func _process(delta):
 		world.sounds.remove(world.sounds.find(rico))
 		queue_free()
 	set_frame(int(f))
+	SoundManager.process_sound(rico,world.time_scale)
 
 

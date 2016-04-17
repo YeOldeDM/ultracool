@@ -21,6 +21,7 @@ onready var shoot = get_node('shoot')
 var has_fov = false
 
 var dead = false
+var final_dead = false
 var path = []
 var draw_path = false
 
@@ -30,7 +31,8 @@ func _ready():
 	set_fixed_process(true)
 
 func _fixed_process(delta):
-	if dead and !kill.is_voice_active(0):
+	if dead and !kill.is_voice_active(0) and !final_dead:
+		final_dead = true
 		_die()
 	elif !world.player.dead:
 		if path.size() > 1:
@@ -55,7 +57,9 @@ func _fixed_process(delta):
 		has_fov = true
 	else:
 		has_fov = false
-	
+	for sound in [shoot,kill]:
+		SoundManager.process_sound(sound,world.time_scale)
+
 func run_to(delta,pos):
 	var V = pos-get_pos()
 	V = V.normalized()*(speed)
@@ -64,8 +68,6 @@ func run_to(delta,pos):
 func kill():
 	kill.play('kill')
 	dead = true
-	if my_bullet:
-		my_bullet.owner = null
 	get_node('sprite').set_modulate(Color(0.5,0,0,1))
 	get_node('animator').stop(false)
 	var lv = get_linear_velocity()*0.1
@@ -81,15 +83,14 @@ func _die():
 		G.set_pos(get_pos())
 		G.sprite.set_color(sprite.get_modulate())
 		G.set_linear_velocity(Vector2(rand_range(-2,2),rand_range(-2,2))*rand_range(2,6))
-	world.sounds.remove(world.sounds.find(kill))
-	world.sounds.remove(world.sounds.find(shoot))
 	spawner.start_spawn()
 
-	world.find_mooks()
+#	world.find_mooks()
 	if !world.player.dead:
 		world.score()	#prevent scores after death (its weird)
 		
-	world.remove_mook(self)
+	queue_free()
+	#world.remove_mook(self)
 
 func get_path():
 	path = world.find_path_to_player(self)
@@ -98,10 +99,11 @@ func _on_Timer_timeout():
 	if world.player:
 		get_path()
 
+
 func fire():
 	var B = bullet.instance()
-	B.owner = self
 	my_bullet = B
 	B.set_pos(get_pos())
 	world.get_node('bullets').add_child(B)
 	B.fire(self,world.player.get_pos())
+	B.owner = self

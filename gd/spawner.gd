@@ -12,7 +12,7 @@ onready var spawn = get_node('spawn')
 
 var can_splode=true
 func _ready():
-	world.sounds.append(spawn)
+	#world.sounds.append(spawn)
 	start_spawn()	#bootstrap
 	set_process(true)
 
@@ -25,6 +25,7 @@ func _process(delta):
 			spawn.play('spawn')
 			splode.set_emitting(true)
 			can_splode=false
+	SoundManager.process_sound(spawn,world.time_scale)
 
 func start_spawn():
 	timer.start()
@@ -35,7 +36,7 @@ func _spawn():
 	timer.stop()
 	var m = mook.instance()
 	world.add_mook(m)
-	world.find_mooks()
+#	world.find_mooks()
 	m.set_pos(get_pos())
 	m.spawner = self
 	anim.stop_all()

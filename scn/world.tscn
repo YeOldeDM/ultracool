@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=1]
+[gd_scene load_steps=41 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
 [ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
@@ -8,7 +8,8 @@
 [ext_resource path="res://gfx/map01.png" type="Texture" id=6]
 [ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scn/player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=9]
+[ext_resource path="res://sfx/sond.wav" type="Sample" id=9]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 
@@ -167,7 +168,11 @@ vertices = Vector2Array( 51, 45, 32, 41, 32, 37, 37, 31, 41, 31, 52, 39, 55, 45,
 polygons = [ IntArray( 0, 1, 2, 3, 4, 5, 6 ), IntArray( 7, 8, 9, 10 ), IntArray( 11, 5, 4, 12 ), IntArray( 13, 11, 12 ), IntArray( 14, 8, 7, 11 ), IntArray( 10, 9, 6, 5 ), IntArray( 11, 13, 15 ), IntArray( 14, 11, 15, 16 ), IntArray( 14, 16, 17 ), IntArray( 14, 17, 18 ), IntArray( 18, 19, 20, 21 ), IntArray( 14, 18, 21 ), IntArray( 14, 21, 22 ), IntArray( 23, 17, 16, 24 ), IntArray( 24, 13, 12, 25 ), IntArray( 23, 24, 25 ), IntArray( 23, 25, 3, 2 ), IntArray( 19, 23, 2, 26 ), IntArray( 20, 19, 26 ), IntArray( 27, 20, 26 ), IntArray( 28, 29, 30, 31 ), IntArray( 32, 28, 31, 33 ), IntArray( 6, 32, 33, 0 ), IntArray( 1, 0, 34, 35 ), IntArray( 36, 37, 38, 39 ), IntArray( 34, 36, 39, 40 ), IntArray( 26, 35, 34, 40, 41, 42, 27 ), IntArray( 14, 22, 27, 42, 43 ), IntArray( 42, 44, 45, 43 ), IntArray( 14, 43, 46, 47 ) ]
 outlines = [ Vector2Array( 15, 2, 12, 2, 12, 16, 7, 16, 7, 29, 12, 29, 12, 47, 16, 47, 16, 54, 2, 54, 2, 60, 20, 60, 20, 45, 51, 45, 51, 56, 42, 56, 42, 54, 35, 54, 35, 58, 55, 58, 55, 45, 62, 45, 62, 11, 15, 11 ), Vector2Array( 24, 19, 24, 30, 28, 30, 28, 19 ), Vector2Array( 34, 19, 30, 19, 30, 30, 34, 30 ), Vector2Array( 32, 37, 25, 37, 25, 41, 32, 41 ), Vector2Array( 37, 19, 37, 23, 41, 23, 41, 19 ), Vector2Array( 37, 27, 37, 31, 41, 31, 41, 27 ), Vector2Array( 58, 17, 52, 17, 52, 39, 58, 39 ) ]
 
-[sub_resource type="ConvexPolygonShape2D" id=29]
+[sub_resource type="SampleLibrary" id=29]
+
+samples/sond = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+
+[sub_resource type="ConvexPolygonShape2D" id=30]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, -2, 1, -1, 1, 0, 0, 1, -1, 1, -2, 0, -2, -1, -1, -2 )
@@ -188,9 +193,10 @@ scale = Vector2( 1, 1 )
 margin/right = 40.0
 margin/bottom = 40.0
 focus/ignore_mouse = false
-focus/stop_mouse = true
+focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
 
 [node name="hopswap" type="Label" parent="overlay/HUD"]
 
@@ -389,6 +395,7 @@ constant_linear_velocity = Vector2( 0, 0 )
 constant_angular_velocity = 0.0
 friction = 1.0
 bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
 
 [node name="visual" type="Sprite" parent="map"]
 
@@ -523,21 +530,28 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = null
+config/samples = SubResource( 29 )
 config/pitch_random = 0.0
+
+[node name="music_reset" type="Timer" parent="music"]
+
+process_mode = 1
+wait_time = 8.0
+one_shot = false
+autostart = true
 
 [node name="xhair" type="Sprite" parent="."]
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="col" type="Area2D" parent="xhair"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 29 )
+shapes/0/shape = SubResource( 30 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -570,6 +584,63 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 
+[node name="menu" type="Node2D" parent="."]
+
+process/pause_mode = 2
+z/z = 4
+
+[node name="title" type="Label" parent="menu"]
+
+margin/left = 21.0
+margin/top = 11.0
+margin/right = 45.0
+margin/bottom = 18.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.191406, 1, 0.943146, 1 )
+text = "PAUSED"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="back" type="Button" parent="menu"]
+
+margin/left = 35.0
+margin/top = 36.0
+margin/right = 63.0
+margin/bottom = 49.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+text = "back"
+flat = false
+
+[node name="quit" type="Button" parent="menu"]
+
+margin/left = 35.0
+margin/top = 50.0
+margin/right = 63.0
+margin/bottom = 63.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+custom_fonts/font = ExtResource( 2 )
+toggle_mode = false
+text = "quit"
+flat = false
+
+[connection signal="timeout" from="music/music_reset" to="." method="_on_music_reset_timeout"]
+
 [connection signal="body_enter" from="xhair/col" to="." method="_on_xhair_body_enter"]
+
+[connection signal="pressed" from="menu/back" to="." method="_on_back_pressed"]
+
+[connection signal="pressed" from="menu/quit" to="." method="_on_quit_pressed"]
 
 

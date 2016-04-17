@@ -12,6 +12,8 @@ func fire(owner,target_pos):
 	V = V.normalized()*SPEED
 	set_linear_velocity(V)
 
+func _exit_tree():
+	owner = null
 
 func _on_bullet_body_enter( body ):
 	if body.has_method('kill'):
@@ -19,6 +21,6 @@ func _on_bullet_body_enter( body ):
 	var s = splode.instance()
 	get_parent().add_child(s)
 	s.set_pos(get_pos())
-	if owner and !owner.is_queued_for_deletion():
-		owner.my_bullet = null
+	owner.my_bullet = null
+	
 	queue_free()
