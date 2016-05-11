@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=10 format=1]
 
 [ext_resource path="res://scn/mook.gd" type="Script" id=1]
 [ext_resource path="res://gfx/guy.png" type="Texture" id=2]
@@ -28,6 +28,12 @@ samples/shoot = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
 [sub_resource type="SampleLibrary" id=4]
 
 samples/kill = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+
+[sub_resource type="OccluderPolygon2D" id=5]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 1, -2, -1, -2, -1, 1, 1, 1 )
 
 [node name="mook" type="RigidBody2D"]
 
@@ -114,6 +120,11 @@ process_mode = 1
 wait_time = 0.4
 one_shot = false
 autostart = false
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+
+occluder = SubResource( 5 )
+light_mask = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 

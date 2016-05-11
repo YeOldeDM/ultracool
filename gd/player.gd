@@ -49,6 +49,8 @@ func _fixed_process(delta):
 		respawn()
 	for sound in [shoot,kill,hop]:
 		SoundManager.process_sound(sound,world.time_scale)
+
+
 func _integrate_forces(state):
 	if !dead:
 		var delta = state.get_step()
@@ -107,6 +109,7 @@ func _integrate_forces(state):
 		set_linear_velocity(lv)
 
 		if SHOOT and can_shoot:
+			var xhairpos = get_parent().get_node('xhair').get_pos()
 			get_node('shoot').play('shoot')
 			#shoot_label.set_text("WILL SHOOT")
 			can_shoot = false
@@ -114,9 +117,18 @@ func _integrate_forces(state):
 			var B = bullet.instance()
 			B.owner = self
 			my_bullet = B
-			B.set_pos(get_pos())
+			var bullet_pos = get_pos()
+			if bullet_pos.x < xhairpos.x:
+				bullet_pos.x += 1
+			elif bullet_pos.x > xhairpos.x:
+				bullet_pos.x -= 1
+			if bullet_pos.y < xhairpos.y:
+				bullet_pos.y += 1
+			elif bullet_pos.y > xhairpos.y:
+				bullet_pos.y -= 1
+			B.set_pos(bullet_pos)
 			get_parent().add_child(B)
-			B.fire(self,get_parent().get_node('xhair').get_pos())
+			B.fire(self,xhairpos)
 		
 
 			
@@ -145,6 +157,8 @@ func kill():
 	_die()
 
 func _die():
+	for bullet in world.get_node('bullets').get_children():
+		bullet.queue_free()
 	kill.play('kill')
 	var lv = get_linear_velocity()*0.4
 	set_linear_velocity(lv)

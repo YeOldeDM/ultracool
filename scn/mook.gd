@@ -70,11 +70,11 @@ func kill():
 	dead = true
 	get_node('sprite').set_modulate(Color(0.5,0,0,1))
 	get_node('animator').stop(false)
-	var lv = get_linear_velocity()*0.1
+	var lv = get_linear_velocity()*0.05
 	set_linear_velocity(lv)
 
 func _die():
-	var lv = get_linear_velocity()*0.4
+	var lv = get_linear_velocity()*0.05
 	set_linear_velocity(lv)
 
 	for i in range(6):
@@ -90,7 +90,7 @@ func _die():
 		world.score()	#prevent scores after death (its weird)
 		
 	queue_free()
-	#world.remove_mook(self)
+	world.remove_mook(self)
 
 func get_path():
 	path = world.find_path_to_player(self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=1]
+[gd_scene load_steps=50 format=1]
 
 [ext_resource path="res://scn/world.gd" type="Script" id=1]
 [ext_resource path="res://fnt/wendy.fnt" type="Font" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://gfx/map01.png" type="Texture" id=6]
 [ext_resource path="res://scn/spawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scn/player.tscn" type="PackedScene" id=8]
-[ext_resource path="res://sfx/sond.wav" type="Sample" id=9]
-[ext_resource path="res://gfx/xhair.png" type="Texture" id=10]
+[ext_resource path="res://icon.png" type="Texture" id=9]
+[ext_resource path="res://sfx/sond.wav" type="Sample" id=10]
+[ext_resource path="res://gfx/xhair.png" type="Texture" id=11]
 
 [sub_resource type="Animation" id=1]
 
@@ -168,11 +169,59 @@ vertices = Vector2Array( 51, 45, 32, 41, 32, 37, 37, 31, 41, 31, 52, 39, 55, 45,
 polygons = [ IntArray( 0, 1, 2, 3, 4, 5, 6 ), IntArray( 7, 8, 9, 10 ), IntArray( 11, 5, 4, 12 ), IntArray( 13, 11, 12 ), IntArray( 14, 8, 7, 11 ), IntArray( 10, 9, 6, 5 ), IntArray( 11, 13, 15 ), IntArray( 14, 11, 15, 16 ), IntArray( 14, 16, 17 ), IntArray( 14, 17, 18 ), IntArray( 18, 19, 20, 21 ), IntArray( 14, 18, 21 ), IntArray( 14, 21, 22 ), IntArray( 23, 17, 16, 24 ), IntArray( 24, 13, 12, 25 ), IntArray( 23, 24, 25 ), IntArray( 23, 25, 3, 2 ), IntArray( 19, 23, 2, 26 ), IntArray( 20, 19, 26 ), IntArray( 27, 20, 26 ), IntArray( 28, 29, 30, 31 ), IntArray( 32, 28, 31, 33 ), IntArray( 6, 32, 33, 0 ), IntArray( 1, 0, 34, 35 ), IntArray( 36, 37, 38, 39 ), IntArray( 34, 36, 39, 40 ), IntArray( 26, 35, 34, 40, 41, 42, 27 ), IntArray( 14, 22, 27, 42, 43 ), IntArray( 42, 44, 45, 43 ), IntArray( 14, 43, 46, 47 ) ]
 outlines = [ Vector2Array( 15, 2, 12, 2, 12, 16, 7, 16, 7, 29, 12, 29, 12, 47, 16, 47, 16, 54, 2, 54, 2, 60, 20, 60, 20, 45, 51, 45, 51, 56, 42, 56, 42, 54, 35, 54, 35, 58, 55, 58, 55, 45, 62, 45, 62, 11, 15, 11 ), Vector2Array( 24, 19, 24, 30, 28, 30, 28, 19 ), Vector2Array( 34, 19, 30, 19, 30, 30, 34, 30 ), Vector2Array( 32, 37, 25, 37, 25, 41, 32, 41 ), Vector2Array( 37, 19, 37, 23, 41, 23, 41, 19 ), Vector2Array( 37, 27, 37, 31, 41, 31, 41, 27 ), Vector2Array( 58, 17, 52, 17, 52, 39, 58, 39 ) ]
 
-[sub_resource type="SampleLibrary" id=29]
+[sub_resource type="OccluderPolygon2D" id=29]
 
-samples/sond = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 33, 20, 31, 20, 31, 29, 33, 29, 33, 28, 32, 28, 32, 21, 33, 21 )
 
-[sub_resource type="ConvexPolygonShape2D" id=30]
+[sub_resource type="OccluderPolygon2D" id=30]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 27, 20, 25, 20, 25, 29, 27, 29, 27, 28, 26, 28, 26, 21, 27, 21 )
+
+[sub_resource type="OccluderPolygon2D" id=31]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 40, 20, 38, 20, 38, 22, 40, 22 )
+
+[sub_resource type="OccluderPolygon2D" id=32]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 40, 28, 38, 28, 38, 30, 40, 30 )
+
+[sub_resource type="OccluderPolygon2D" id=33]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 31, 38, 26, 38, 26, 40, 31, 40 )
+
+[sub_resource type="OccluderPolygon2D" id=34]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 56, 19, 54, 19, 54, 37, 56, 37 )
+
+[sub_resource type="OccluderPolygon2D" id=35]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 0, 53, 0, 62, 22, 62, 22, 47, 49, 47, 49, 54, 44, 54, 44, 52, 33, 52, 33, 60, 57, 60, 57, 47, 64, 47, 64, 10, 66, 10, 66, 66, -2, 66, -2, 53 )
+
+[sub_resource type="OccluderPolygon2D" id=36]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 0, 52, 14, 52, 14, 49, 10, 49, 10, 31, 5, 31, 5, 14, 10, 14, 10, 0, 17, 0, 17, 9, 64, 9, 64, 10, 66, 10, 66, -2, -2, -2, -2, 53, 0, 53 )
+
+[sub_resource type="SampleLibrary" id=37]
+
+samples/sond = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
+
+[sub_resource type="ConvexPolygonShape2D" id=38]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 0, -2, 1, -1, 1, 0, 0, 1, -1, 1, -2, 0, -2, -1, -1, -2 )
@@ -499,9 +548,49 @@ transform/pos = Vector2( 59, 14 )
 
 transform/pos = Vector2( 9, 18 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 29 )
+light_mask = 1
+
+[node name="LightOccluder2D1" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 30 )
+light_mask = 1
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 31 )
+light_mask = 1
+
+[node name="LightOccluder2D3" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 32 )
+light_mask = 1
+
+[node name="LightOccluder2D4" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 33 )
+light_mask = 1
+
+[node name="LightOccluder2D5" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 34 )
+light_mask = 1
+
+[node name="LightOccluder2D6" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 35 )
+light_mask = 1
+
+[node name="LightOccluder2D7" type="LightOccluder2D" parent="map"]
+
+occluder = SubResource( 36 )
+light_mask = 1
+
 [node name="player" parent="." instance=ExtResource( 8 )]
 
-transform/pos = Vector2( 29, 43 )
+transform/pos = Vector2( 50, 42 )
 
 [node name="camera" type="Camera2D" parent="player"]
 
@@ -522,6 +611,28 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
+[node name="Light2D" type="Light2D" parent="player"]
+
+transform/scale = Vector2( 4, 4 )
+enabled = true
+texture = ExtResource( 9 )
+offset = Vector2( 0, 0 )
+scale = 1.0
+color = Color( 0, 0, 0, 0 )
+energy = 1.0
+mode = 2
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = true
+shadow/color = Color( 0.145142, 0.146414, 0.226563, 0.379861 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 3
+
 [node name="music" type="SamplePlayer2D" parent="."]
 
 params/volume_db = 0.0
@@ -530,7 +641,7 @@ params/attenuation/min_distance = 1.0
 params/attenuation/max_distance = 2048.0
 params/attenuation/distance_exp = 1.0
 config/polyphony = 1
-config/samples = SubResource( 29 )
+config/samples = SubResource( 37 )
 config/pitch_random = 0.0
 
 [node name="music_reset" type="Timer" parent="music"]
@@ -544,14 +655,14 @@ autostart = true
 
 visibility/opacity = 0.5
 transform/pos = Vector2( 32, 32 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 modulate = Color( 0.917969, 0.207977, 0.207977, 1 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="col" type="Area2D" parent="xhair"]
 
 input/pickable = true
-shapes/0/shape = SubResource( 30 )
+shapes/0/shape = SubResource( 38 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
@@ -587,6 +698,7 @@ size_flags/vertical = 2
 [node name="menu" type="Node2D" parent="."]
 
 process/pause_mode = 2
+visibility/visible = false
 z/z = 4
 
 [node name="title" type="Label" parent="menu"]

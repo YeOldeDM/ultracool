@@ -2,7 +2,7 @@
 extends Node2D
 
 var timescale = true
-var time_scale
+var time_scale = 0.01
 var sounds = []
 var soundtrack = 'sond'
 onready var game = get_node('/root/Game')
