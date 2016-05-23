@@ -13,6 +13,8 @@ func fire(owner,target_pos):
 	set_linear_velocity(V)
 
 func _exit_tree():
+	print("I'm leavin!")
+	owner.my_bullet = null
 	owner = null
 
 func _on_bullet_body_enter( body ):
@@ -21,7 +23,5 @@ func _on_bullet_body_enter( body ):
 	var s = splode.instance()
 	get_parent().add_child(s)
 	s.set_pos(get_pos())
-
-	owner.my_bullet = null
 	
 	queue_free()

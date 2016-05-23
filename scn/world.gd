@@ -7,7 +7,6 @@ var sounds = []
 var soundtrack = 'sond'
 onready var game = get_node('/root/Game')
 onready var music = get_node('music')
-onready var env = get_node('env')
 onready var xhair = get_node('xhair')
 onready var nav = get_node('map/nav')
 onready var player_start = get_node('map/player_start').get_pos()
@@ -107,9 +106,6 @@ func add_mook(mook):
 			sounds.append(node)
 
 func remove_mook(mook):
-	if mook.my_bullet != null:
-		mook.my_bullet.owner = null
-		mook.my_bullet = null
 	for node in mook.get_children():
 		if node in sounds:
 			sounds.remove(sounds.find(node))

@@ -103,7 +103,7 @@ func _on_Timer_timeout():
 func fire():
 	var B = bullet.instance()
 	my_bullet = B
+	B.owner = self
 	B.set_pos(get_pos())
 	world.get_node('bullets').add_child(B)
 	B.fire(self,world.player.get_pos())
-	B.owner = self

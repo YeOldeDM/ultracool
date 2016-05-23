@@ -46,7 +46,10 @@ func _fixed_process(delta):
 					world.hop_swap()
 					hop.play('hop')
 	if RESTART and dead:
-		respawn()
+		#only respawn if no bullets are on the screen
+		#(bypasses a bug in bullet ownership)
+		if world.get_node('bullets').get_children().empty():
+			respawn()
 	for sound in [shoot,kill,hop]:
 		SoundManager.process_sound(sound,world.time_scale)
 
@@ -134,10 +137,11 @@ func _integrate_forces(state):
 			
 			
 func respawn():
-	for mook in world.get_mooks():
-		mook.queue_free()
 	for bullet in world.get_node('bullets').get_children():
 		bullet.queue_free()
+	for mook in world.get_mooks():
+		mook.queue_free()
+
 	for spawner in world.spawners:
 		spawner.start_spawn()
 	set_pos(world.player_start)
